@@ -12,19 +12,22 @@ class GeradorFormalismoGramatica:
 
     @property
     def conjunto_producoes(self):
-        str = '{'
+        linhas = []
 
         for nao_terminais, terminais in self.gramatica.conjunto_producoes.iteritems():
-            str += '\n  ' + nao_terminais + ' -> '
-            str += '|'.join(terminais)
+            linha = '%s -> %s' % (nao_terminais, '|'.join(terminais))
+            linhas.append(linha)
 
-        str += '\n}'
-        return str
+        return '{\n%s\n}' % self.__lista_para_string(linhas, 2)
 
     def gerar(self):
         str = 'G = (%s, %s, P, S)' % (self.simbolos_nao_terminais, self.simbolos_terminais)
         str += '\nP = %s' % self.conjunto_producoes
         return str
+
+    def __lista_para_string(self, lista, nivel_identacao):
+        identacao = nivel_identacao * ' '
+        return '\n'.join([identacao + item for item in lista])
 
     def __gerar_simbolos(self, simbolos):
         return '{' + ', '.join(simbolos) + '}'
