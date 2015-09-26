@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
+from collections import OrderedDict
 from identificadores import *
 
 class IdentificadorTipoGramatica:
     # esquerda = sigla que representa o tipo de gramática
     # direita = classe do identificador de tipo de gramática correspondente
-    IDENTIFICADORES = {
-        'GR': IdentificadorGramaticaRegular,
-        'GLC': IdentificadorGramaticaLivreDeContexto,
-        'GSC': IdentificadorGramaticaSensivelAoContexto,
-        'GI': IdentificadorGramaticaIrrestrita
-    }
+    IDENTIFICADORES = OrderedDict([
+        ('GR', IdentificadorGramaticaRegular),
+        ('GLC', IdentificadorGramaticaLivreDeContexto),
+        ('GSC', IdentificadorGramaticaSensivelAoContexto),
+        ('GI', IdentificadorGramaticaIrrestrita)
+    ])
 
     def __init__(self, gramatica):
         self.gramatica = gramatica
