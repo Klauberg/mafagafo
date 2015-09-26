@@ -1,6 +1,6 @@
 from gramatica import *
 
-gramatica = Gramatica(['S'], ['a', 'b'], {'S': ['a', 'b'], 'SS': ['b']})
+gramatica = Gramatica(['S'], ['a', 'b'], {'S': ['a', 'b'], 'A': ['x']})
 
 # gera formalismo
 gerador_formalismo_gramatica = GeradorFormalismoGramatica(gramatica)

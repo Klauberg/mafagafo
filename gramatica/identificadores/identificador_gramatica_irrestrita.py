@@ -3,4 +3,4 @@ class IdentificadorGramaticaIrrestrita:
         self.gramatica = gramatica
 
     def identificar(self):
-        return True
+        return False
