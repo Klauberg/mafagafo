@@ -1,20 +1,22 @@
+# -*- coding: utf-8 -*-
 from identificadores import *
 
 class IdentificadorTipoGramatica:
+    # esquerda = sigla que representa o tipo de gramática
+    # direita = classe do identificador de tipo de gramática correspondente
+    IDENTIFICADORES = {
+        'GR': IdentificadorGramaticaRegular,
+        'GLC': IdentificadorGramaticaLivreDeContexto,
+        'GSC': IdentificadorGramaticaSensivelAoContexto,
+        'GI': IdentificadorGramaticaIrrestrita
+    }
+
     def __init__(self, gramatica):
         self.gramatica = gramatica
 
     def identificar(self):
-        if IdentificadorGramaticaRegular(self.gramatica).identificar():
-            return 'GR'
-
-        if IdentificadorGramaticaLivreDeContexto(self.gramatica).identificar():
-            return 'GLC'
-
-        if IdentificadorGramaticaSensivelAoContexto(self.gramatica).identificar():
-            return 'GSC'
-
-        if IdentificadorGramaticaIrrestrita(self.gramatica).identificar():
-            return 'GI'
+        for sigla, classe in self.IDENTIFICADORES.iteritems():
+            if classe(self.gramatica).identificar():
+                return sigla
 
         return None
