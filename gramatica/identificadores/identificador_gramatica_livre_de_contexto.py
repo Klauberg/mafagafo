@@ -18,7 +18,7 @@ class IdentificadorGramaticaLivreDeContexto:
         return all(self.nao_contem_sentenca_vazia(x) for x in partes)
 
     def apenas_um_nt(self, x):
-        """Verifica se em uma string há apenas um símbolo não-terminal"""
+        """Verifica se a string é apenas um símbolo não-terminal"""
         return re.match('^[A-Z]$', x)
 
     def nao_contem_sentenca_vazia(self, str):
