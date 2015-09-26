@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import unittest
+from constants import *
 from gramatica import *
 from gramatica.identificadores import *
 

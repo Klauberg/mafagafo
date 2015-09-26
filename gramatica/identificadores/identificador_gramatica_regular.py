@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import re
+from constants import *
 
 class IdentificadorGramaticaRegular:
     def __init__(self, gramatica):

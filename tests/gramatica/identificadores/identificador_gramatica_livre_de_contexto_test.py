@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import unittest
+from constants import *
 from gramatica import *
 from gramatica.identificadores import *
 
@@ -68,6 +69,6 @@ class IdentificadorGramaticaLivreDeContextoTest(unittest.TestCase):
         gramatica = Gramatica(
             ['S', 'A'],
             ['a'],
-            {'S': ['aS', 'A', 'aa', 'X'], 'A': ['a', 'aX']}
+            {'S': ['aS', 'A', 'aa', SENTENCA_VAZIA], 'A': ['a', 'a' + SENTENCA_VAZIA]}
         )
         self.assertFalse(IdentificadorGramaticaLivreDeContexto(gramatica).identificar())

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import re
+from constants import *
 
 class IdentificadorGramaticaLivreDeContexto:
     def __init__(self, gramatica):
@@ -22,4 +23,4 @@ class IdentificadorGramaticaLivreDeContexto:
         return re.match('^[A-Z]$', x)
 
     def nao_contem_sentenca_vazia(self, str):
-        return not 'X' in str # X = sentença vazia
+        return not SENTENCA_VAZIA in str
