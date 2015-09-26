@@ -1,0 +1,4 @@
+from identificador_gramatica_regular import *
+from identificador_gramatica_sensivel_ao_contexto import *
+from identificador_gramatica_livre_de_contexto import *
+from identificador_gramatica_irrestrita import *
