@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from constants import *
 
 class GeradorFormalismoGramatica:
@@ -17,13 +18,21 @@ class GeradorFormalismoGramatica:
         linhas = []
 
         for esquerda, direita in self.gramatica.conjunto_producoes.iteritems():
+            # A sentença vazia é representada como uma string vazia na estrutura da
+            # classe Gramatica, mas queremos exibir o símbolo que representa a
+            # sentença vazia quando geramos a string do formalismo da gramática
             conjunto_producoes = self.adicionar_simbolo_sentenca_vazia(direita)
+
             linha = '%s -> %s' % (esquerda, '|'.join(conjunto_producoes))
             linhas.append(linha)
 
         return '{\n%s\n}' % self.__lista_para_string(linhas, 2)
 
     def adicionar_simbolo_sentenca_vazia(self, conjunto_producoes):
+        """
+        Substitui strings vazias do conjunto de produções pelo símbolo de sentença
+        vazia
+        """
         conjunto_producoes = list(conjunto_producoes) # copia a lista
 
         for i, item in enumerate(conjunto_producoes):
