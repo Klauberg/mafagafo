@@ -2,6 +2,7 @@
 import sys
 import validacoes
 from gramatica import *
+from constants import *
 
 def ler_simbolos_nt():
     """Le e valida os simbolos não-terminais"""
@@ -10,6 +11,7 @@ def ler_simbolos_nt():
     simbolos = remover_duplicados(raw.split(','))
     validacao = validacoes.validar_simbolos_nt(simbolos)
     verificar_validacao(validacao)
+    simbolos.insert(0, simbolos.pop(simbolos.index(SIMBOLO_INICIAL)))
     return simbolos
 
 def ler_simbolos_t():
@@ -40,3 +42,6 @@ def iniciar():
     simbolos_nt = ler_simbolos_nt()
     simbolos_t = ler_simbolos_t()
     conjunto_producoes = ler_conjunto_producoes(simbolos_nt, simbolos_t)
+
+    print 'NT: ' + ','.join(simbolos_nt)
+    print 'T: ' + ','.join(simbolos_t)
