@@ -64,6 +64,10 @@ def verificar_validacao(validacao):
         print validacao[1]
         sys.exit()
 
+def imprimir_derivacoes_sentencas(sentencas):
+    sentencas = [SIMBOLO_SENTENCA_VAZIA if x == '' else x for x in sentencas]
+    print ' -> '.join(sentencas)
+
 def iniciar():
     simbolos_nt = ler_simbolos_nt()
     print
@@ -83,4 +87,4 @@ def iniciar():
     print 'Sentenças geradas:'
     for x in range(0, 3):
         gerado = gerador_sentencas.gerar()
-        print ' -> '.join(gerado[1])
+        imprimir_derivacoes_sentencas(gerado[1])
