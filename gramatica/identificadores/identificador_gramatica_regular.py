@@ -20,9 +20,9 @@ class IdentificadorGramaticaRegular:
 
     def apenas_um_nt(self, x):
         """Verifica se a string é apenas um símbolo não-terminal"""
-        return re.match('^[A-Z]$', x)
+        return bool(re.match('^[A-Z]$', x))
 
     def t_ou_t_seguido_de_nt(self, x):
         """Verifica se a string é composta por um símbolo terminal ou
         um terminal seguido de não-terminal"""
-        return re.match('^[a-z0-9][A-Z]?$', x)
+        return bool(re.match('^[a-z0-9][A-Z]?$', x))

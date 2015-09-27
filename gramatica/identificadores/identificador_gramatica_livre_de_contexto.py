@@ -20,7 +20,7 @@ class IdentificadorGramaticaLivreDeContexto:
 
     def apenas_um_nt(self, x):
         """Verifica se a string é apenas um símbolo não-terminal"""
-        return re.match('^[A-Z]$', x)
+        return bool(re.match('^[A-Z]$', x))
 
     def nao_eh_sentenca_vazia(self, str):
         return str != ''
