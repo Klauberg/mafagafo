@@ -1,23 +1,22 @@
 # -*- coding: utf-8 -*-
 from constants import *
+from collections import OrderedDict
 
 class GeradorFormalismoGramatica:
     def __init__(self, gramatica):
         self.gramatica = gramatica
 
-    @property
-    def simbolos_nao_terminais(self):
+    def gerar_simbolos_nao_terminais(self):
         return self.__gerar_simbolos(self.gramatica.simbolos_nao_terminais)
 
-    @property
-    def simbolos_terminais(self):
+    def gerar_simbolos_terminais(self):
         return self.__gerar_simbolos(self.gramatica.simbolos_terminais)
 
-    @property
-    def conjunto_producoes(self):
+    def gerar_conjunto_producoes(self):
         linhas = []
+        ordenado = self.__conjunto_producoes_ordenado()
 
-        for esquerda, direita in self.gramatica.conjunto_producoes.iteritems():
+        for esquerda, direita in ordenado.iteritems():
             # A sentença vazia é representada como uma string vazia na estrutura da
             # classe Gramatica, mas queremos exibir o símbolo que representa a
             # sentença vazia quando geramos a string do formalismo da gramática
@@ -42,9 +41,9 @@ class GeradorFormalismoGramatica:
         return conjunto_producoes
 
     def gerar(self):
-        str = 'G = (%s, %s, P, %s)' % (self.simbolos_nao_terminais,
-            self.simbolos_terminais, SIMBOLO_INICIAL)
-        str += '\nP = %s' % self.conjunto_producoes
+        str = 'G = (%s, %s, P, %s)' % (self.gerar_simbolos_nao_terminais(),
+            self.gerar_simbolos_terminais(), SIMBOLO_INICIAL)
+        str += '\nP = %s' % self.gerar_conjunto_producoes()
         return str
 
     def __lista_para_string(self, lista, nivel_identacao):
@@ -53,3 +52,6 @@ class GeradorFormalismoGramatica:
 
     def __gerar_simbolos(self, simbolos):
         return '{' + ', '.join(simbolos) + '}'
+
+    def __conjunto_producoes_ordenado(self):
+        return OrderedDict(sorted(self.gramatica.conjunto_producoes.items()))
