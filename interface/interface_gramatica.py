@@ -85,6 +85,11 @@ def iniciar():
     print 'Tipo de gramática: %s\n' % tipo
 
     print 'Sentenças geradas:'
-    for x in range(0, 3):
-        gerado = gerador_sentencas.gerar()
-        imprimir_derivacoes_sentencas(gerado[1])
+    while True:
+        for x in range(0, 3):
+            gerado = gerador_sentencas.gerar()
+            imprimir_derivacoes_sentencas(gerado[1])
+
+        mais = raw_input('Gerar mais sentenças (S/N)? ').strip().lower()
+        if mais != 's':
+            break
