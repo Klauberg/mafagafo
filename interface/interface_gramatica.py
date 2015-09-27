@@ -75,6 +75,12 @@ def iniciar():
     gramatica = Gramatica(simbolos_nt, simbolos_t, conjunto_producoes)
     tipo = IdentificadorTipoGramatica(gramatica).identificar()
     formalizacao = GeradorFormalismoGramatica(gramatica).gerar()
+    gerador_sentencas = GeradorSentencas(gramatica)
 
     print 'Formalização:\n%s\n' % formalizacao
     print 'Tipo de gramática: %s\n' % tipo
+
+    print 'Sentenças geradas:'
+    for x in range(0, 3):
+        gerado = gerador_sentencas.gerar()
+        print ' -> '.join(gerado[1])
