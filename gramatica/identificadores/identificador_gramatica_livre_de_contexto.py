@@ -13,14 +13,14 @@ class IdentificadorGramaticaLivreDeContexto:
         return all(self.apenas_um_nt(x) for x in self.gramatica.conjunto_producoes)
 
     def lado_direito_valido(self):
-        return all(self.partes_validas(x) for x in self.gramatica.conjunto_producoes.values())
+        return all(self.sentencas_validas(x) for x in self.gramatica.conjunto_producoes.values())
 
-    def partes_validas(self, partes):
-        return all(self.nao_contem_sentenca_vazia(x) for x in partes)
+    def sentencas_validas(self, sentencas):
+        return all(self.nao_eh_sentenca_vazia(x) for x in sentencas)
 
     def apenas_um_nt(self, x):
         """Verifica se a string é apenas um símbolo não-terminal"""
         return re.match('^[A-Z]$', x)
 
-    def nao_contem_sentenca_vazia(self, str):
-        return not SENTENCA_VAZIA in str
+    def nao_eh_sentenca_vazia(self, str):
+        return str != ''

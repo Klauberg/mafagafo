@@ -34,8 +34,8 @@ def validar_simbolos_t(simbolos):
     return (True,)
 
 def validar_sentenca_vazia(simbolos):
-    if any(s == SENTENCA_VAZIA for s in simbolos):
+    if any(s == SIMBOLO_SENTENCA_VAZIA for s in simbolos):
         return (False, 'Você não pode informar o símbolo %s aqui, pois ele é o caractere' \
-            'que representa a sentença vazia nesse programa.' % SENTENCA_VAZIA)
+            'que representa a sentença vazia nesse programa.' % SIMBOLO_SENTENCA_VAZIA)
 
     return (True,)

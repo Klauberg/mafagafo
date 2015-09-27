@@ -69,6 +69,6 @@ class IdentificadorGramaticaLivreDeContextoTest(unittest.TestCase):
         gramatica = Gramatica(
             ['S', 'A'],
             ['a'],
-            {'S': ['aS', 'A', 'aa', SENTENCA_VAZIA], 'A': ['a', 'a' + SENTENCA_VAZIA]}
+            {'S': ['aS', 'A', 'aa', ''], 'A': ['a', 'a']}
         )
         self.assertFalse(IdentificadorGramaticaLivreDeContexto(gramatica).identificar())

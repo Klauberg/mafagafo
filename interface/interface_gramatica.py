@@ -49,7 +49,7 @@ def ler_linha_conjunto_producoes(linha, conjunto_producoes):
 
     esquerda = separacao[0].strip()
     direita = separacao[1]
-    partes = direita.split('|')
+    partes = direita.replace(SIMBOLO_SENTENCA_VAZIA, '').split('|')
     conjunto_producoes[esquerda] = partes
 
 def remover_duplicados(lista):
