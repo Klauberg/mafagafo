@@ -26,5 +26,14 @@ class GeradorSentencas:
         return (sentenca, historico)
 
     def ordenar_conjunto_producoes(self, conjunto_producoes):
+        """
+        Conjunto de produções é ordenado pelo tamanho da esquerda, decrescente,
+        ou seja, os itens da esquerda com maior tamanho ficam em cima na lista.
+        Exemplo:
+        aA -> bA
+        A -> c
+        S -> aA|A
+        Os maiores ficam acima para que eles tenham prioridade na substituição.
+        """
         iteritems = conjunto_producoes.iteritems()
         return OrderedDict(sorted(iteritems, reverse = True, key = lambda x: len(x[0])))
