@@ -29,8 +29,7 @@ class GeradorSentencas:
     def gerar_derivacao(self, sentenca):
         for esquerda, direita in self.conjunto_producoes.iteritems():
             if esquerda in sentenca:
-                indice = random.randint(0, len(direita) - 1)
-                item_direita = direita[indice]
+                indice = random.choice(direita)
                 sentenca = sentenca.replace(esquerda, item_direita)
                 break
         return sentenca
