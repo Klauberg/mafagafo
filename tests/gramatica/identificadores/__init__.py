@@ -1,3 +1,4 @@
 from identificador_gramatica_regular_test import *
 from identificador_gramatica_livre_de_contexto_test import *
 from identificador_gramatica_sensivel_ao_contexto_test import *
+from identificador_gramatica_irrestrita_test import *
