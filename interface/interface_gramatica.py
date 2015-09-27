@@ -24,7 +24,33 @@ def ler_simbolos_t():
     return simbolos
 
 def ler_conjunto_producoes(simbolos_nt, simbolos_t):
-    pass
+    print 'Insira as produções para cada símbolo, uma por linha.'
+    print 'Use o caractere : para separar o lado da esquerda do lado da direita.'
+    print 'Use | para separar as partes da produção.'
+    print 'Exemplo: S:aA|a'
+    print '         A:b|aA'
+    print
+    print 'Digite abaixo:'
+
+    conjunto_producoes = {}
+    while True:
+        raw = raw_input()
+        if raw.strip() == '':
+            break
+        ler_linha_conjunto_producoes(raw, conjunto_producoes)
+
+    return conjunto_producoes
+
+def ler_linha_conjunto_producoes(linha, conjunto_producoes):
+    separacao = linha.split(':')
+    if len(separacao) < 2:
+        print 'Erro de formato'
+        return
+
+    esquerda = separacao[0].strip()
+    direita = separacao[1]
+    partes = direita.split('|')
+    conjunto_producoes[esquerda] = partes
 
 def remover_duplicados(lista):
     return sorted(set(lista))
@@ -40,8 +66,15 @@ def verificar_validacao(validacao):
 
 def iniciar():
     simbolos_nt = ler_simbolos_nt()
-    simbolos_t = ler_simbolos_t()
-    conjunto_producoes = ler_conjunto_producoes(simbolos_nt, simbolos_t)
+    print
 
-    print 'NT: ' + ','.join(simbolos_nt)
-    print 'T: ' + ','.join(simbolos_t)
+    simbolos_t = ler_simbolos_t()
+    print
+
+    conjunto_producoes = ler_conjunto_producoes(simbolos_nt, simbolos_t)
+    gramatica = Gramatica(simbolos_nt, simbolos_t, conjunto_producoes)
+    tipo = IdentificadorTipoGramatica(gramatica).identificar()
+    formalizacao = GeradorFormalismoGramatica(gramatica).gerar()
+
+    print 'Formalização:\n%s\n' % formalizacao
+    print 'Tipo de gramática: %s\n' % tipo
