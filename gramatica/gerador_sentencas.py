@@ -4,12 +4,17 @@ import re
 from collections import OrderedDict
 from constants import *
 
+class SelecionadorSentencaAleatorio:
+    def selecionar(self, sentencas):
+        return random.choice(sentencas)
+
 class GeradorSentencas:
     MAXIMO_ITERACOES = 10000
 
-    def __init__(self, gramatica):
+    def __init__(self, gramatica, selecionador_sentenca = SelecionadorSentencaAleatorio):
         self.gramatica = gramatica
         self.conjunto_producoes = self.ordenar_conjunto_producoes(self.gramatica.conjunto_producoes)
+        self.selecionador_sentenca = selecionador_sentenca()
 
     def gerar(self, sentenca = SIMBOLO_INICIAL):
         overflow = False
@@ -29,7 +34,7 @@ class GeradorSentencas:
     def gerar_derivacao(self, sentenca):
         for esquerda, direita in self.conjunto_producoes.iteritems():
             if esquerda in sentenca:
-                item = random.choice(direita)
+                item = self.selecionador_sentenca.selecionar(direita)
                 sentenca = sentenca.replace(esquerda, item)
                 break
         return sentenca
