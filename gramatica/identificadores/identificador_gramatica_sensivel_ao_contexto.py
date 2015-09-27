@@ -1,6 +1,25 @@
+# -*- coding: utf-8 -*-
+import re
+from constants import *
+
 class IdentificadorGramaticaSensivelAoContexto:
     def __init__(self, gramatica):
         self.gramatica = gramatica
 
     def identificar(self):
-        return False
+        return self.lado_esquerdo_valido() and self.lado_direito_valido()
+
+    def lado_esquerdo_valido(self):
+        return all(self.esquerda_menor_que_direita(e, d) for e, d in self.gramatica.conjunto_producoes.iteritems())
+
+    def lado_direito_valido(self):
+        return all(self.sentencas_validas(x) for x in self.gramatica.conjunto_producoes.values())
+
+    def sentencas_validas(self, sentencas):
+        return all(self.nao_eh_sentenca_vazia(x) for x in sentencas)
+
+    def nao_eh_sentenca_vazia(self, str):
+        return str != ''
+
+    def esquerda_menor_que_direita(self, esquerda, direita):
+        return all(len(esquerda) <= len(sentenca) for sentenca in direita)
