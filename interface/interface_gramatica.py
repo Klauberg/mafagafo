@@ -7,7 +7,7 @@ def ler_simbolos_nt():
     """Le e valida os simbolos não-terminais"""
     print 'Preencha os símbolos não terminais separados por vírgula:'
     raw = raw_input()
-    simbolos = raw.split(',')
+    simbolos = remover_duplicados(raw.split(','))
     validacao = validacoes.validar_simbolos_nt(simbolos)
     verificar_validacao(validacao)
     return simbolos
@@ -16,13 +16,16 @@ def ler_simbolos_t():
     """Le e valida os simbolos terminais"""
     print 'Preencha os símbolos terminais separados por vírgula:'
     raw = raw_input()
-    simbolos = raw.split(',')
+    simbolos = remover_duplicados(raw.split(','))
     validacao = validacoes.validar_simbolos_t(simbolos)
     verificar_validacao(validacao)
     return simbolos
 
 def ler_conjunto_producoes(simbolos_nt, simbolos_t):
     pass
+
+def remover_duplicados(lista):
+    return sorted(set(lista))
 
 def verificar_validacao(validacao):
     """
