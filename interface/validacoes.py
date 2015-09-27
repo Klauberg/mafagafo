@@ -4,7 +4,7 @@ from constants import *
 
 def validar_simbolos_nt(simbolos):
     """Valida os símbolos não-terminais entrados pelo usuário"""
-    if not simbolos:
+    if not simbolos or simbolos[0].strip() == '':
         return (False, 'Nenhum símbolo preenchido')
 
     if not all(re.match('^[A-Z]$', s) for s in simbolos):
@@ -21,7 +21,7 @@ def validar_simbolos_nt(simbolos):
 
 def validar_simbolos_t(simbolos):
     """Valida os símbolos terminais entrados pelo usuário"""
-    if not simbolos:
+    if not simbolos or simbolos[0].strip() == '':
         return (False, 'Nenhum símbolo preenchido')
 
     if not all(re.match('^[a-z0-9]$', s) for s in simbolos):
