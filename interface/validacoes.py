@@ -10,6 +10,9 @@ def validar_simbolos_nt(simbolos):
     if not all(re.match('^[A-Z]$', s) for s in simbolos):
         return (False, 'Cada símbolo não-terminal deve ser uma letra maiúscula (A-Z).')
 
+    if not SIMBOLO_INICIAL in simbolos:
+        return (False, 'Símbolo inicial (%s) deve estar incluso na lista.' % SIMBOLO_INICIAL)
+
     validacao_sv = validar_sentenca_vazia(simbolos)
     if not validacao_sv[0]:
         return validacao_sv
