@@ -20,6 +20,7 @@ class GeradorSentencas:
                     indice = random.randint(0, len(direita) - 1)
                     item_direita = direita[indice]
                     sentenca = sentenca.replace(esquerda, item_direita)
+                    sentenca = sentenca.replace(SENTENCA_VAZIA, '')
                     historico.append(sentenca)
                     break
 
