@@ -12,11 +12,16 @@ class GeradorSentencas:
         self.conjunto_producoes = self.ordenar_conjunto_producoes(self.gramatica.conjunto_producoes)
 
     def gerar(self, sentenca = SIMBOLO_INICIAL):
+        overflow = False
         historico = [sentenca]  
         i = 0
 
-        while re.search('[A-Z]', sentenca) and i <= self.MAXIMO_ITERACOES:
+        while re.search('[A-Z]', sentenca):
             i += 1
+            if i > self.MAXIMO_ITERACOES:
+                overflow = True
+                break
+
             for esquerda, direita in self.conjunto_producoes.iteritems():
                 if esquerda in sentenca:
                     indice = random.randint(0, len(direita) - 1)
@@ -25,7 +30,7 @@ class GeradorSentencas:
                     historico.append(sentenca)
                     break
 
-        return (sentenca, historico)
+        return (sentenca, historico, overflow)
 
     def ordenar_conjunto_producoes(self, conjunto_producoes):
         """

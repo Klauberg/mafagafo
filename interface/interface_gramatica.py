@@ -64,9 +64,9 @@ def verificar_validacao(validacao):
         print validacao[1]
         sys.exit()
 
-def imprimir_derivacoes_sentencas(sentencas):
+def imprimir_derivacoes_sentencas(sentencas, overflow):
     sentencas = [SIMBOLO_SENTENCA_VAZIA if x == '' else x for x in sentencas]
-    print ' -> '.join(sentencas)
+    print ' -> '.join(sentencas) + (' (overflow)' if overflow else '')
 
 def iniciar():
     simbolos_nt = ler_simbolos_nt()
@@ -88,7 +88,7 @@ def iniciar():
     while True:
         for x in range(0, 3):
             gerado = gerador_sentencas.gerar()
-            imprimir_derivacoes_sentencas(gerado[1])
+            imprimir_derivacoes_sentencas(gerado[1], gerado[2])
 
         mais = raw_input('Gerar mais sentenças (S/N)? ').strip().lower()
         if mais != 's':
