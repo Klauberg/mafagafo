@@ -7,7 +7,7 @@ def validar_simbolos_nt(simbolos):
     if not simbolos:
         return (False, 'Nenhum símbolo preenchido')
 
-    if any(not re.match('^[A-Z]$', s) for s in simbolos):
+    if not all(re.match('^[A-Z]$', s) for s in simbolos):
         return (False, 'Cada símbolo não-terminal deve ser uma letra maiúscula (A-Z).')
 
     validacao_sv = validar_sentenca_vazia(simbolos)
@@ -21,7 +21,7 @@ def validar_simbolos_t(simbolos):
     if not simbolos:
         return (False, 'Nenhum símbolo preenchido')
 
-    if any(not re.match('^[a-z0-9]$', s) for s in simbolos):
+    if not all(re.match('^[a-z0-9]$', s) for s in simbolos):
         return (False, 'Cada símbolo terminal deve ser uma letra minúscula (a-z) ou dígito (0-9).')
 
     validacao_sv = validar_sentenca_vazia(simbolos)
