@@ -2,6 +2,7 @@
 import random
 import re
 from collections import OrderedDict
+from constants import *
 
 class GeradorSentencas:
     MAXIMO_ITERACOES = 10000
@@ -10,7 +11,7 @@ class GeradorSentencas:
         self.gramatica = gramatica
         self.conjunto_producoes = self.ordenar_conjunto_producoes(self.gramatica.conjunto_producoes)
 
-    def gerar(self, sentenca = 'S'):
+    def gerar(self, sentenca = SIMBOLO_INICIAL):
         historico = [sentenca]  
         i = 0
 

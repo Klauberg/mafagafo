@@ -2,6 +2,7 @@
 
 import unittest
 from constants import *
+from constants import SIMBOLO_INICIAL as S
 from gramatica import *
 from gramatica.identificadores import *
 
@@ -12,9 +13,9 @@ class IdentificadorGramaticaLivreDeContextoTest(unittest.TestCase):
         como livre de contexto
         """
         gramatica = Gramatica(
-            ['S', 'A'],
+            [S, 'A'],
             ['a'],
-            {'S': ['a', 'aA'], 'A': ['a']}
+            {S: ['a', 'aA'], 'A': ['a']}
         )
         self.assertTrue(IdentificadorGramaticaLivreDeContexto(gramatica).identificar())
 
@@ -24,9 +25,9 @@ class IdentificadorGramaticaLivreDeContextoTest(unittest.TestCase):
         como livre de contexto
         """
         gramatica = Gramatica(
-            ['S', 'A'],
+            [S, 'A'],
             ['a'],
-            {'S': ['AS', 'A'], 'AS': ['aS'], 'A': ['a']}
+            {S: ['AS', 'A'], 'A'+S: ['a'+S], 'A': ['a']}
         )
         self.assertFalse(IdentificadorGramaticaLivreDeContexto(gramatica).identificar())
 
@@ -36,16 +37,16 @@ class IdentificadorGramaticaLivreDeContextoTest(unittest.TestCase):
         de contexto
         """
         gramatica = Gramatica(
-            ['S', 'A'],
+            [S, 'A'],
             ['a'],
-            {'S': ['aS', 'A'], 'aS': ['aA'], 'A': ['a']}
+            {S: ['a'+S, 'A'], 'a'+S: ['aA'], 'A': ['a']}
         )
         self.assertFalse(IdentificadorGramaticaLivreDeContexto(gramatica).identificar())
 
         gramatica = Gramatica(
-            ['S', 'A'],
+            [S, 'A'],
             ['a'],
-            {'S': ['aS', 'A'], 'a': ['aA'], 'A': ['a']}
+            {S: ['a'+S, 'A'], 'a': ['aA'], 'A': ['a']}
         )
         self.assertFalse(IdentificadorGramaticaLivreDeContexto(gramatica).identificar())
 
@@ -55,9 +56,9 @@ class IdentificadorGramaticaLivreDeContextoTest(unittest.TestCase):
         de contexto
         """
         gramatica = Gramatica(
-            ['S', 'A'],
+            [S, 'A'],
             ['a'],
-            {'S': ['aS', 'A', 'aa'], 'A': ['a']}
+            {S: ['a'+S, 'A', 'aa'], 'A': ['a']}
         )
         self.assertTrue(IdentificadorGramaticaLivreDeContexto(gramatica).identificar())
 
@@ -67,8 +68,8 @@ class IdentificadorGramaticaLivreDeContextoTest(unittest.TestCase):
         de contexto
         """
         gramatica = Gramatica(
-            ['S', 'A'],
+            [S, 'A'],
             ['a'],
-            {'S': ['aS', 'A', 'aa', ''], 'A': ['a']}
+            {S: ['a'+S, 'A', 'aa', ''], 'A': ['a']}
         )
         self.assertFalse(IdentificadorGramaticaLivreDeContexto(gramatica).identificar())

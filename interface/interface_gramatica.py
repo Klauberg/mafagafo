@@ -27,7 +27,7 @@ def ler_conjunto_producoes(simbolos_nt, simbolos_t):
     print 'Insira as produções para cada símbolo, uma por linha.'
     print 'Use o caractere : para separar o lado da esquerda do lado da direita.'
     print 'Use | para separar as partes da produção.'
-    print 'Exemplo: S:aA|a'
+    print 'Exemplo: %s:aA|a' % SIMBOLO_INICIAL
     print '         A:b|aA'
     print
     print 'Digite abaixo:'

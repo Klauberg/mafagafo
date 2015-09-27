@@ -42,7 +42,8 @@ class GeradorFormalismoGramatica:
         return conjunto_producoes
 
     def gerar(self):
-        str = 'G = (%s, %s, P, S)' % (self.simbolos_nao_terminais, self.simbolos_terminais)
+        str = 'G = (%s, %s, P, %s)' % (self.simbolos_nao_terminais,
+            self.simbolos_terminais, SIMBOLO_INICIAL)
         str += '\nP = %s' % self.conjunto_producoes
         return str
 

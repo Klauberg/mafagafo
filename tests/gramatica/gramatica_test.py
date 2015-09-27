@@ -1,11 +1,13 @@
 import unittest
 from gramatica import *
+from constants import *
+from constants import SIMBOLO_INICIAL as S
 
 class GramaticaTest(unittest.TestCase):
-    NAO_TERMINAIS = ['S', 'A']
+    NAO_TERMINAIS = [S, 'A']
     TERMINAIS = ['a', 'b']
     CONJUNTO_PRODUCOES = {
-        'S': ['aA', 'a'],
+        S: ['aA', 'a'],
         'A': ['b', 'A']
     }
 

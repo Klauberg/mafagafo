@@ -2,6 +2,7 @@
 
 import unittest
 from constants import *
+from constants import SIMBOLO_INICIAL as S
 from gramatica import *
 from gramatica.identificadores import *
 
@@ -12,9 +13,9 @@ class IdentificadorGramaticaSensivelAoContextoTest(unittest.TestCase):
         sensível ao contexto
         """
         gramatica = Gramatica(
-            ['S', 'A'],
+            [S, 'A'],
             ['a'],
-            {'S': ['a', 'aA'], 'A': ['a']}
+            {S: ['a', 'aA'], 'A': ['a']}
         )
         self.assertTrue(IdentificadorGramaticaSensivelAoContexto(gramatica).identificar())
 
@@ -24,9 +25,9 @@ class IdentificadorGramaticaSensivelAoContextoTest(unittest.TestCase):
         ao contexto
         """
         gramatica = Gramatica(
-            ['S', 'A'],
+            [S, 'A'],
             ['a'],
-            {'S': ['AS', 'A'], 'AS': ['a', 'aa'], 'A': ['a']}
+            {S: ['A'+S, 'A'], 'A'+S: ['a', 'aa'], 'A': ['a']}
         )
         self.assertFalse(IdentificadorGramaticaSensivelAoContexto(gramatica).identificar())
 
@@ -36,8 +37,8 @@ class IdentificadorGramaticaSensivelAoContextoTest(unittest.TestCase):
         ao contexto
         """
         gramatica = Gramatica(
-            ['S', 'A'],
+            [S, 'A'],
             ['a'],
-            {'S': ['aS', 'A', 'aa', ''], 'A': ['a']}
+            {S: ['a'+S, 'A', 'aa', ''], 'A': ['a']}
         )
         self.assertFalse(IdentificadorGramaticaLivreDeContexto(gramatica).identificar())
