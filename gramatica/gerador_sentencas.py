@@ -27,4 +27,4 @@ class GeradorSentencas:
 
     def ordenar_conjunto_producoes(self, conjunto_producoes):
         iteritems = conjunto_producoes.iteritems()
-        return OrderedDict(sorted(iteritems, key = lambda x: len(x[0])))
+        return OrderedDict(sorted(iteritems, reverse = True, key = lambda x: len(x[0])))
