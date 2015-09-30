@@ -42,6 +42,6 @@ def validar_sentenca_vazia(simbolos):
 
 def validar_lado_esquerdo(simbolos):
     if not bool(re.search('[A-Z]', simbolos)):
-        return (False, 'O lado esquerde deve conter ao menos um simbolo não-terminal')
+        return (False, 'O lado esquerdo deve conter ao menos um símbolo não-terminal')
 
     return (True,)
