@@ -39,3 +39,9 @@ def validar_sentenca_vazia(simbolos):
             'que representa a sentença vazia nesse programa.' % SIMBOLO_SENTENCA_VAZIA)
 
     return (True,)
+
+def validar_lado_esquerdo(simbolos):
+    if not bool(re.search('[A-Z]', simbolos)):
+        return (False, 'O lado esquerde deve conter ao menos um simbolo não-terminal')
+
+    return (True,)

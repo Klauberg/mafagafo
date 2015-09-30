@@ -55,3 +55,4 @@ class GeradorSentencas:
         """
         iteritems = conjunto_producoes.iteritems()
         return OrderedDict(sorted(iteritems, reverse = True, key = lambda x: len(x[0])))
+
