@@ -11,7 +11,7 @@ class GeradorSentencasTest(unittest.TestCase):
             'B': ['', 'bB']
         })
 
-        gerador = GeradorSentencas(gramatica, self.SelecionadorSentencaTesteGerarSemOverflow)
+        gerador = GeradorSentencas(gramatica, self.SelecionadorSentencaParaTesteSemOverflow)
         output = gerador.gerar()
 
         self.assertEqual(output[0], 'bbb')
@@ -23,18 +23,18 @@ class GeradorSentencasTest(unittest.TestCase):
             S: [S, 'a']
         })
 
-        gerador = GeradorSentencas(gramatica, self.SelecionadorSentencaTesteGerarComOverflow)
+        gerador = GeradorSentencas(gramatica, self.SelecionadorSentencaParaTesteComOverflow)
         output = gerador.gerar()
 
         self.assertTrue(output[2])
 
-    class SelecionadorSentencaTesteGerarSemOverflow:
+    class SelecionadorSentencaParaTesteSemOverflow:
         i = 0
         def selecionar(self, sentencas):
             opcao = [0, 0, 1, 1, 0][self.i]
             self.i += 1
             return sentencas[opcao]
 
-    class SelecionadorSentencaTesteGerarComOverflow:
+    class SelecionadorSentencaParaTesteComOverflow:
         def selecionar(self, sentencas):
             return sentencas[0]
