@@ -26,7 +26,7 @@ def ler_simbolos_t():
 def ler_conjunto_producoes(simbolos_nt, simbolos_t):
     print 'Insira as produções para cada símbolo, uma por linha.'
     print 'Use o caractere : para separar o lado da esquerda do lado da direita.'
-    print 'Use | para separar as partes da produção--------.'
+    print 'Use | para separar as partes da produção.'
     print 'Exemplo: %s:aA|a' % SIMBOLO_INICIAL
     print '         A:b|aA'
     print
@@ -35,11 +35,12 @@ def ler_conjunto_producoes(simbolos_nt, simbolos_t):
     conjunto_producoes = {}
     while True:
         raw = raw_input()
+        if raw.strip() == '':
+            break
         esquerda = raw[:raw.index(':')]
         validacao = validacoes.validar_lado_esquerdo(esquerda)
         verificar_validacao(validacao)
-        if raw.strip() == '':
-            break
+        
         ler_linha_conjunto_producoes(raw, conjunto_producoes)
 
     return conjunto_producoes
