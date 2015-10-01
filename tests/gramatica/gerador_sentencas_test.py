@@ -1,19 +1,6 @@
 import unittest
 from gramatica import *
-from constants import *
 from constants import SIMBOLO_INICIAL as S
-from constants import SIMBOLO_SENTENCA_VAZIA as X
-
-class SelecionadorSentencaTesteGerarSemOverflow:
-    i = 0
-    def selecionar(self, sentencas):
-        opcao = [0, 0, 1, 1, 0][self.i]
-        self.i += 1
-        return sentencas[opcao]
-
-class SelecionadorSentencaTesteGerarComOverflow:
-    def selecionar(self, sentencas):
-        return sentencas[0]
 
 class GeradorSentencasTest(unittest.TestCase):
     def test_gerar_sem_overflow(self):
@@ -24,7 +11,7 @@ class GeradorSentencasTest(unittest.TestCase):
             'B': ['', 'bB']
         })
 
-        gerador = GeradorSentencas(gramatica, SelecionadorSentencaTesteGerarSemOverflow)
+        gerador = GeradorSentencas(gramatica, self.SelecionadorSentencaTesteGerarSemOverflow)
         output = gerador.gerar()
 
         self.assertEqual(output[0], 'bbb')
@@ -36,7 +23,18 @@ class GeradorSentencasTest(unittest.TestCase):
             S: [S, 'a']
         })
 
-        gerador = GeradorSentencas(gramatica, SelecionadorSentencaTesteGerarComOverflow)
+        gerador = GeradorSentencas(gramatica, self.SelecionadorSentencaTesteGerarComOverflow)
         output = gerador.gerar()
 
         self.assertTrue(output[2])
+
+    class SelecionadorSentencaTesteGerarSemOverflow:
+        i = 0
+        def selecionar(self, sentencas):
+            opcao = [0, 0, 1, 1, 0][self.i]
+            self.i += 1
+            return sentencas[opcao]
+
+    class SelecionadorSentencaTesteGerarComOverflow:
+        def selecionar(self, sentencas):
+            return sentencas[0]
