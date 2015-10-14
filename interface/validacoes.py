@@ -45,3 +45,7 @@ def validar_lado_esquerdo(simbolos):
         return (False, 'O lado esquerdo deve conter ao menos um símbolo não-terminal')
 
     return (True,)
+
+def validar_producao(producao):
+    if not ':' in producao:
+        return (False, 'Produção inválida')

@@ -27,7 +27,7 @@ def ler_conjunto_producoes(simbolos_nt, simbolos_t):
     print 'Insira as produções para cada símbolo, uma por linha.'
     print 'Use o caractere : para separar o lado da esquerda do lado da direita.'
     print 'Use | para separar as partes da produção.'
-    print 'Exemplo: %s:aA|a' % SIMBOLO_INICIAL
+    print 'Exemplo: S:aA|a'
     print '         A:b|aA'
     print
     print 'Digite abaixo:'
@@ -35,8 +35,27 @@ def ler_conjunto_producoes(simbolos_nt, simbolos_t):
     conjunto_producoes = {}
     while True:
         raw = raw_input()
+        
         if raw.strip() == '':
             break
+
+        esquerda = raw.split(':')[0].strip()
+        direita = raw.split(':')[1].strip()
+
+        for c in esquerda:
+            if not c == SIMBOLO_SENTENCA_VAZIA:
+                if c.isupper():
+                    addNovoSimbolo(simbolos_nt, c)
+                else:
+                    addNovoSimbolo(simbolos_t, c)
+
+        for c in direita.replace('|', ''):
+            if not c == SIMBOLO_SENTENCA_VAZIA:
+                if c.isupper():
+                    addNovoSimbolo(simbolos_nt, c)
+                else:
+                    addNovoSimbolo(simbolos_t, c)    
+
         esquerda = raw[:raw.index(':')]
         validacao = validacoes.validar_lado_esquerdo(esquerda)
         verificar_validacao(validacao)
@@ -44,6 +63,23 @@ def ler_conjunto_producoes(simbolos_nt, simbolos_t):
         ler_linha_conjunto_producoes(raw, conjunto_producoes)
 
     return conjunto_producoes
+
+def addNovoSimbolo(lista, simbolo):
+    for s in lista:
+        if s == simbolo:
+            return None
+    lista.append(simbolo)
+    return None
+
+def buscar_simbolos_t(conjunto_producoes):
+    for s in conjunto_producoes:
+        print s[0]
+        print s[1]
+        print 
+    return None
+
+def buscar_simbolos_nt(conjunto_producoes):
+    return None
 
 def ler_linha_conjunto_producoes(linha, conjunto_producoes):
     separacao = linha.split(':')
@@ -73,13 +109,12 @@ def imprimir_derivacoes_sentencas(sentencas, overflow):
     print ' -> '.join(sentencas) + (' (overflow)' if overflow else '')
 
 def iniciar():
-    simbolos_nt = ler_simbolos_nt()
-    print
-
-    simbolos_t = ler_simbolos_t()
-    print
-
+    simbolos_nt = []
+    simbolos_t = []
     conjunto_producoes = ler_conjunto_producoes(simbolos_nt, simbolos_t)
+    print simbolos_nt
+    print simbolos_t
+    print conjunto_producoes
     gramatica = Gramatica(simbolos_nt, simbolos_t, conjunto_producoes)
     tipo = IdentificadorTipoGramatica(gramatica).identificar()
     formalizacao = GeradorFormalismoGramatica(gramatica).gerar()
