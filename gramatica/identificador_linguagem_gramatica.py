@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
+from gerador_sentencas import *
+from identificador_linguagem_por_inferencia import *
 from constants import *
 from arvore_derivacoes import ArvoreDerivacoes
 
@@ -18,7 +20,9 @@ class IdentificadorLinguagemGramatica:
             return '{%s}' % (', '.join(sentencas))
 
     def inferir_linguagem(self):
-        return 'TO-DO'
+        gerador_sentencas = GeradorSentencas(self.gramatica)
+        sentencas_geradas = [no.sentenca for no in gerador_sentencas.gerar(100)]
+        return IdentificadorLinguagemPorInferencia(sentencas_geradas).identificar()
 
     # to-do: mover este método para outra classe utilitária, pois está repetido
     # em outras classes
