@@ -105,16 +105,26 @@ def verificar_validacao(validacao):
         print validacao[1]
         sys.exit()
 
-def imprimir_derivacoes_sentencas(sentencas, overflow):
-    sentencas = [SIMBOLO_SENTENCA_VAZIA if x == '' else x for x in sentencas]
-    print ' -> '.join(sentencas) + (' (overflow)' if overflow else '')
+def imprimir_derivacoes_sentencas(nos):
+    if nos is None:
+        print ('Não é possível gerar sentenças para esta gramática, pois ela não gera'
+               ' nenhuma sentença finita.')
+        return
+
+    for no in nos:
+        derivacoes = []
+        pai = no.nodo_pai
+        while pai is not None:
+            derivacoes.insert(0, pai.sentenca)
+            pai = pai.nodo_pai
+
+        print (' -> '.join(derivacoes)) + ' -> ' + no.sentenca
 
 def iniciar():
     simbolos_nt = []
     simbolos_t = []
     conjunto_producoes = ler_conjunto_producoes(simbolos_nt, simbolos_t)
     gramatica = Gramatica(simbolos_nt, simbolos_t, conjunto_producoes)
-    gerador_sentencas = GeradorSentencas(gramatica)
 
     formalizacao = GeradorFormalismoGramatica(gramatica).gerar()
     print 'Formalização:\n%s\n' % formalizacao
@@ -125,12 +135,7 @@ def iniciar():
     linguagem = IdentificadorLinguagemGramatica(gramatica).identificar()
     print 'Linguagem:\n%s\n' % linguagem
 
+    gerador_sentencas = GeradorSentencas(gramatica)
+    sentencas_geradas = gerador_sentencas.gerar(10)
     print 'Sentenças geradas:'
-    while True:
-        for x in range(0, 3):
-            gerado = gerador_sentencas.gerar()
-            imprimir_derivacoes_sentencas(gerado[1], gerado[2])
-
-        mais = raw_input('Gerar mais sentenças (S/N)? ').strip().lower()
-        if mais != 's':
-            break
+    imprimir_derivacoes_sentencas(sentencas_geradas)

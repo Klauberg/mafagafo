@@ -50,29 +50,22 @@ class ArvoreDerivacoes:
         """Verifica se a gramática pode gerar ao menos uma sentença finita"""
         return any(not self.contem_nt(no.sentenca) for no in self.folhas)
 
+    def buscar_nos_de_sentencas_finais(self):
+        return [no for no in self.folhas if no.eh_sentenca_final()]
+
+    def buscar_sentencas_finais(self):
+        return [no.sentenca for no in self.buscar_nos_de_sentencas_finais()]
+
     def buscar_sentencas_minimas(self):
         """Busca sentenças mínimas da gramática"""
         sentencas_minimas = []
-        sentencas_finais = [no.sentenca for no in self.folhas if no.eh_sentenca_final()]
+        sentencas_finais = self.buscar_sentencas_finais()
 
         if sentencas_finais:
             tamanho_minimo = len(min(sentencas_finais, key = lambda s: len(s)))
             sentencas_minimas = [s for s in sentencas_finais if len(s) == tamanho_minimo]
         
         return sentencas_minimas
-
-    #def __buscar_folhas(self):
-    #    """Busca folhas (nós terminais) da árvore"""
-    #    folhas = []
-    #    fila_nos = deque([self.raiz])
-    #
-    #    while fila_nos:
-    #        no = fila_nos.popleft()
-    #        fila_nos.extend(no.nos)
-    #        if not no.nos:
-    #            folhas.append(no)
-    #
-    #    return folhas
 
     # to-do: mover este método para outra classe utilitária, pois está repetido
     # em outras classes
