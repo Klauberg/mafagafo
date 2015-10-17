@@ -14,6 +14,7 @@ class IdentificadorLinguagemGramatica:
         if any(self.contem_nt(s) for s in sentencas):
             return self.inferir_linguagem()
         else:
+            sentencas = [SIMBOLO_SENTENCA_VAZIA if s == '' else s for s in sentencas]
             return '{%s}' % (', '.join(sentencas))
 
     def inferir_linguagem(self):

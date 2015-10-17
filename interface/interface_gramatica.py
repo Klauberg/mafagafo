@@ -118,7 +118,7 @@ def imprimir_derivacoes_sentencas(nos):
             derivacoes.insert(0, pai.sentenca)
             pai = pai.nodo_pai
 
-        print (' -> '.join(derivacoes)) + ' -> ' + no.sentenca
+        print (' -> '.join(derivacoes)) + ' -> ' + (SIMBOLO_SENTENCA_VAZIA if no.sentenca == '' else no.sentenca)
 
 def iniciar():
     simbolos_nt = []
