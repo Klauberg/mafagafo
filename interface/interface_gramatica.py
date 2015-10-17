@@ -45,16 +45,16 @@ def ler_conjunto_producoes(simbolos_nt, simbolos_t):
         for c in esquerda:
             if not c == SIMBOLO_SENTENCA_VAZIA:
                 if c.isupper():
-                    addNovoSimbolo(simbolos_nt, c)
+                    adicionar_novo_simbolo(simbolos_nt, c)
                 else:
-                    addNovoSimbolo(simbolos_t, c)
+                    adicionar_novo_simbolo(simbolos_t, c)
 
         for c in direita.replace('|', ''):
             if not c == SIMBOLO_SENTENCA_VAZIA:
                 if c.isupper():
-                    addNovoSimbolo(simbolos_nt, c)
+                    adicionar_novo_simbolo(simbolos_nt, c)
                 else:
-                    addNovoSimbolo(simbolos_t, c)    
+                    adicionar_novo_simbolo(simbolos_t, c)    
 
         esquerda = raw[:raw.index(':')]
         validacao = validacoes.validar_lado_esquerdo(esquerda)
@@ -64,7 +64,7 @@ def ler_conjunto_producoes(simbolos_nt, simbolos_t):
 
     return conjunto_producoes
 
-def addNovoSimbolo(lista, simbolo):
+def adicionar_novo_simbolo(lista, simbolo):
     for s in lista:
         if s == simbolo:
             return None
@@ -112,9 +112,6 @@ def iniciar():
     simbolos_nt = []
     simbolos_t = []
     conjunto_producoes = ler_conjunto_producoes(simbolos_nt, simbolos_t)
-    print simbolos_nt
-    print simbolos_t
-    print conjunto_producoes
     gramatica = Gramatica(simbolos_nt, simbolos_t, conjunto_producoes)
     tipo = IdentificadorTipoGramatica(gramatica).identificar()
     formalizacao = GeradorFormalismoGramatica(gramatica).gerar()
