@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-
 import unittest
-from constants import *
-from constants import SIMBOLO_INICIAL as S
 from gramatica import *
 from gramatica.arvore_derivacoes import *
 
