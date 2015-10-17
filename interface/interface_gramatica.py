@@ -2,6 +2,7 @@
 import sys
 import validacoes
 from gramatica import *
+from gramatica.arvore_derivacoes import ArvoreDerivacoes
 from constants import *
 
 def ler_simbolos_nt():
@@ -113,12 +114,16 @@ def iniciar():
     simbolos_t = []
     conjunto_producoes = ler_conjunto_producoes(simbolos_nt, simbolos_t)
     gramatica = Gramatica(simbolos_nt, simbolos_t, conjunto_producoes)
-    tipo = IdentificadorTipoGramatica(gramatica).identificar()
-    formalizacao = GeradorFormalismoGramatica(gramatica).gerar()
     gerador_sentencas = GeradorSentencas(gramatica)
 
+    formalizacao = GeradorFormalismoGramatica(gramatica).gerar()
     print 'Formalização:\n%s\n' % formalizacao
+
+    tipo = IdentificadorTipoGramatica(gramatica).identificar()
     print 'Tipo de gramática: %s\n' % tipo
+
+    linguagem = IdentificadorLinguagemGramatica(gramatica).identificar()
+    print 'Linguagem:\n%s\n' % linguagem
 
     print 'Sentenças geradas:'
     while True:

@@ -19,6 +19,7 @@ class ArvoreDerivacoes:
         self.limpar_arvore()
         while self.gerar_novo_nivel(True):
             pass
+        return self
 
     def gerar_novo_nivel(self, impedir_recursao):
         progresso = False
