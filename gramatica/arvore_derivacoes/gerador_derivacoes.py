@@ -10,6 +10,9 @@ class GeradorDerivacoes:
 
     def gerar_derivacoes(self, sentenca):
         possiveis_substituicoes = self.__buscar_possiveis_substituicoes(sentenca)
+        if not possiveis_substituicoes:
+            return None
+
         primeira_substituicao = self.__buscar_primeira_substituicao(possiveis_substituicoes)
         antes_simbolo_nt = sentenca[:primeira_substituicao[1]]
         depois_simbolo_nt = sentenca[(primeira_substituicao[1] + len(primeira_substituicao[0])):]

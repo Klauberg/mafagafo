@@ -17,6 +17,16 @@ class NoArvoreDerivacoes:
             no = no.nodo_pai
         return nao_terminais
 
+    def contem_recursao(self):
+        """
+        Verifica se o nó contém recursão.
+        Isso acontece se o conjunto de NT na sentença desse nó faz parte
+        do conjunto de NTs pelo qual a sentença do nó atual já passou para
+        ter sido derivada
+        """
+        nts = self.buscar_nts(self.sentenca)
+        return self.nao_terminais_derivados().issuperset(nts)
+
     # to-do: mover esse método para classe utilitária
     def buscar_nts(self, sentenca):
         """Busca símbolos NT em uma sentença"""

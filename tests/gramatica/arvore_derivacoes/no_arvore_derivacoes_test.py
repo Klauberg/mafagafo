@@ -19,5 +19,3 @@ class NoArvoreDerivacoesTest(unittest.TestCase):
 
         for no in no2.nos:
             self.assertEqual(no.nao_terminais_derivados(), set(['S', 'A', 'B']))
-
-
