@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import re
+from gramatica.util import *
 from constants import *
 
 class IdentificadorGramaticaIrrestrita:
@@ -7,8 +8,4 @@ class IdentificadorGramaticaIrrestrita:
         self.gramatica = gramatica
 
     def identificar(self):
-        return all(self.contem_nt(x) for x in self.gramatica.conjunto_producoes)
-
-    def contem_nt(self, x):
-        """Verifica se a string contém símbolo não-terminal"""
-        return bool(re.search('[A-Z]', x))
+        return all(sentenca_contem_nt(x) for x in self.gramatica.conjunto_producoes)

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import re
+from gramatica.util import *
 from constants import *
 
 class IdentificadorGramaticaSensivelAoContexto:
@@ -16,10 +17,7 @@ class IdentificadorGramaticaSensivelAoContexto:
         return all(self.sentencas_validas(x) for x in self.gramatica.conjunto_producoes.values())
 
     def sentencas_validas(self, sentencas):
-        return all(self.nao_eh_sentenca_vazia(x) for x in sentencas)
-
-    def nao_eh_sentenca_vazia(self, str):
-        return str != ''
+        return all(not sentenca_eh_vazia(x) for x in sentencas)
 
     def esquerda_menor_que_direita(self, esquerda, direita):
         return all(len(esquerda) <= len(sentenca) for sentenca in direita)

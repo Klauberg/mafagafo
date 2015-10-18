@@ -2,6 +2,7 @@
 import re
 from no_arvore_derivacoes import *
 from gerador_derivacoes import *
+from gramatica.util import *
 from constants import *
 from collections import deque
 
@@ -26,7 +27,7 @@ class ArvoreDerivacoes:
         nova_lista_folhas = []
 
         for no in self.folhas:
-            if not self.contem_nt(no.sentenca):
+            if not sentenca_contem_nt(no.sentenca):
                 nova_lista_folhas.append(no)
                 continue
 
@@ -48,10 +49,10 @@ class ArvoreDerivacoes:
 
     def pode_gerar_sentenca_finita(self):
         """Verifica se a gramática pode gerar ao menos uma sentença finita"""
-        return any(not self.contem_nt(no.sentenca) for no in self.folhas)
+        return any(not sentenca_contem_nt(no.sentenca) for no in self.folhas)
 
     def buscar_nos_de_sentencas_finais(self):
-        return [no for no in self.folhas if no.eh_sentenca_final()]
+        return [no for no in self.folhas if sentenca_eh_final(no.sentenca)]
 
     def buscar_sentencas_finais(self):
         return [no.sentenca for no in self.buscar_nos_de_sentencas_finais()]
@@ -66,9 +67,3 @@ class ArvoreDerivacoes:
             sentencas_minimas = [s for s in sentencas_finais if len(s) == tamanho_minimo]
         
         return sentencas_minimas
-
-    # to-do: mover este método para outra classe utilitária, pois está repetido
-    # em outras classes
-    def contem_nt(self, x):
-        """Verifica se a string contém símbolo não-terminal"""
-        return bool(re.search('[A-Z]', x))

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import re
+from gramatica.util import *
 from constants import *
 from collections import OrderedDict
 
@@ -18,7 +19,7 @@ class GeradorDerivacoes:
         depois_simbolo_nt = sentenca[(primeira_substituicao[1] + len(primeira_substituicao[0])):]
         prefixos = [antes_simbolo_nt + x for x in self.conjunto_producoes[primeira_substituicao[0]]]
 
-        if self.contem_nt(depois_simbolo_nt):
+        if sentenca_contem_nt(depois_simbolo_nt):
             sufixos = self.gerar_derivacoes(depois_simbolo_nt)
         else:
             sufixos = [depois_simbolo_nt]
@@ -62,9 +63,3 @@ class GeradorDerivacoes:
         """
         iteritems = self.gramatica.conjunto_producoes.iteritems()
         return OrderedDict(sorted(iteritems, reverse = True, key = lambda x: len(x[0])))
-
-    # to-do: mover este método para outra classe utilitária, pois está repetido
-    # em outras classes
-    def contem_nt(self, x):
-        """Verifica se a string contém símbolo não-terminal"""
-        return bool(re.search('[A-Z]', x))
