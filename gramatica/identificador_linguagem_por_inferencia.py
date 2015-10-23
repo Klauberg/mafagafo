@@ -17,7 +17,12 @@ class IdentificadorLinguagemPorInferencia:
                 lista.update({c:'-'})
         for l in lista:
             vmin = self.verificarMinimo(l)
-            lista.update({l:vmin})
+            lista.update({l:'>='+str(vmin)})
+        for l in lista:
+            for l2 in lista:
+                if l!=l2 and self.verificarMultiplo(l, l2)!=0:
+                    lista[l] = '='+str(self.verificarMultiplo(l, l2))+l2 
+
         return self.formalizar(lista)
 
     def formalizar(self, lista):
@@ -29,13 +34,15 @@ class IdentificadorLinguagemPorInferencia:
             if not lista[l] in variaveis:
                 variaveis.update({lista[l]:alfabetoVariaveis[count]})
                 count+=1
-        print variaveis
         for l in lista:
-            print 
             valor += l+'^'+variaveis[lista[l]]+', '
         valor += '|'
         for v in variaveis:
-            valor += variaveis[v]+'>='+str(v)+', '
+            if not '>' in v:
+                last = v[-1] #pega o ultimo caractere v = '=2a' -> last = 'a'
+                valor += variaveis[v]+v.replace(last, variaveis[lista[last]])+', '
+            else:
+                valor += variaveis[v]+str(v)+', '
         valor += ')'
         return valor
 
@@ -43,11 +50,13 @@ class IdentificadorLinguagemPorInferencia:
         div = 0
         for s in self.sentencas:
             if t1 in s and t2 in s:
+                if s.count(t2) == 0: return 0
                 if div == 0:
-                    div = self.sentencas.count(t1)/self.sentencas.count(t2)
+                    div = s.count(t1)/s.count(t2)
                 else:
-                    if div != self.sentencas.count(t1)/self.sentencas.count(t2):
+                    if div != s.count(t1)/s.count(t2):
                         return 0
+        if div == 1: return 0
         return div
 
     def verificarMinimo(self, t):
