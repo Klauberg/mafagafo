@@ -18,6 +18,7 @@ class GeradorSentencas:
             quantidade_gerada = len(nos_finais)
 
             if quantidade_gerada == quantidade_gerada_anterior or quantidade_gerada >= quantidade_requisitada:
+                nos_finais.sort(key = lambda x: x.quantidade_derivacoes())
                 if quantidade_gerada > quantidade_requisitada:
                     nos_finais = nos_finais[:quantidade_requisitada]
                 return nos_finais

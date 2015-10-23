@@ -27,3 +27,14 @@ class NoArvoreDerivacoes:
         """
         nts = buscar_nts(self.sentenca)
         return self.nao_terminais_derivados().issuperset(nts)
+
+    def quantidade_derivacoes(self):
+        """
+        Conta quantidade de derivações feitas até este nó
+        """
+        pai = self.nodo_pai
+        i = 0
+        while pai is not None:
+            i += 1
+            pai = pai.nodo_pai
+        return i
