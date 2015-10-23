@@ -13,7 +13,7 @@ class ArvoreDerivacoes:
         self.limpar_arvore()
 
     def limpar_arvore(self):
-        self.raiz = NoArvoreDerivacoes(SIMBOLO_INICIAL)
+        self.raiz = NoArvoreDerivacoes(self.gramatica.simbolo_inicial)
         self.folhas = [self.raiz]
 
     def montar_sem_recursao(self):

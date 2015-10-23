@@ -33,6 +33,7 @@ def ler_conjunto_producoes(simbolos_nt, simbolos_t):
     print
     print 'Digite abaixo:'
 
+    simbolo_inicial = None
     conjunto_producoes = {}
     while True:
         raw = raw_input()
@@ -42,6 +43,9 @@ def ler_conjunto_producoes(simbolos_nt, simbolos_t):
 
         esquerda = raw.split(':')[0].strip()
         direita = raw.split(':')[1].strip()
+
+        if simbolo_inicial is None:
+            simbolo_inicial = esquerda
 
         for c in esquerda:
             if not c == SIMBOLO_SENTENCA_VAZIA:
@@ -63,7 +67,7 @@ def ler_conjunto_producoes(simbolos_nt, simbolos_t):
         
         ler_linha_conjunto_producoes(raw, conjunto_producoes)
 
-    return conjunto_producoes
+    return (simbolo_inicial, conjunto_producoes)
 
 def adicionar_novo_simbolo(lista, simbolo):
     for s in lista:
@@ -123,8 +127,8 @@ def imprimir_derivacoes_sentencas(nos):
 def iniciar():
     simbolos_nt = []
     simbolos_t = []
-    conjunto_producoes = ler_conjunto_producoes(simbolos_nt, simbolos_t)
-    gramatica = Gramatica(simbolos_nt, simbolos_t, conjunto_producoes)
+    simbolo_inicial, conjunto_producoes = ler_conjunto_producoes(simbolos_nt, simbolos_t)
+    gramatica = Gramatica(simbolos_nt, simbolos_t, conjunto_producoes, simbolo_inicial)
 
     formalizacao = GeradorFormalismoGramatica(gramatica).gerar()
     print 'Formalização:\n%s\n' % formalizacao
