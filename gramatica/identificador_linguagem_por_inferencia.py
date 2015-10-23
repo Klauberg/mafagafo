@@ -4,6 +4,8 @@ import sys
 from constants import *
 
 class IdentificadorLinguagemPorInferencia:
+    ALFABETO_VARIAVEIS = ['m', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'x', 'w', 'y', 'z']
+
     def __init__(self, sentencas):
         self.sentencas = sentencas
 
@@ -23,25 +25,26 @@ class IdentificadorLinguagemPorInferencia:
         return self.formalizar(lista)
 
     def formalizar(self, lista):
-        alfabetoVariaveis = ['m', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'x', 'w', 'y', 'z']
-        valor = 'L=('
         variaveis = {}
         count = 0
         for l in lista:
             if not lista[l] in variaveis:
-                variaveis.update({lista[l]:alfabetoVariaveis[count]})
+                variaveis.update({lista[l]:self.ALFABETO_VARIAVEIS[count]})
                 count+=1
+
+        lista_simbolos = []
         for l in lista:
-            valor += l+'^'+variaveis[lista[l]]+', '
-        valor += '|'
+            lista_simbolos.append(l+'^'+variaveis[lista[l]])
+
+        quantidades_simbolos = []
         for v in variaveis:
             if not '>' in v:
                 last = v[-1] # pega o ultimo caractere v = '=2a' -> last = 'a'
-                valor += variaveis[v]+v.replace(last, variaveis[lista[last]])+', '
+                quantidades_simbolos.append(variaveis[v]+v.replace(last, variaveis[lista[last]]))
             else:
-                valor += variaveis[v]+str(v)+', '
-        valor += ')'
-        return valor
+                quantidades_simbolos.append(variaveis[v]+str(v))
+
+        return 'L = { %s | %s }' % (', '.join(lista_simbolos), ', '.join(quantidades_simbolos))
 
     def verificar_multiplo(self, t1, t2):
         div = 0
