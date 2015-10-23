@@ -15,7 +15,8 @@ class IdentificadorGramaticaLivreDeContextoTest(unittest.TestCase):
         gramatica = Gramatica(
             [S, 'A'],
             ['a'],
-            {S: ['a', 'aA'], 'A': ['a']}
+            {S: ['a', 'aA'], 'A': ['a']},
+            S
         )
         self.assertTrue(IdentificadorGramaticaLivreDeContexto(gramatica).identificar())
 
@@ -27,7 +28,8 @@ class IdentificadorGramaticaLivreDeContextoTest(unittest.TestCase):
         gramatica = Gramatica(
             [S, 'A'],
             ['a'],
-            {S: ['AS', 'A'], 'A'+S: ['a'+S], 'A': ['a']}
+            {S: ['AS', 'A'], 'A'+S: ['a'+S], 'A': ['a']},
+            S
         )
         self.assertFalse(IdentificadorGramaticaLivreDeContexto(gramatica).identificar())
 
@@ -39,14 +41,16 @@ class IdentificadorGramaticaLivreDeContextoTest(unittest.TestCase):
         gramatica = Gramatica(
             [S, 'A'],
             ['a'],
-            {S: ['a'+S, 'A'], 'a'+S: ['aA'], 'A': ['a']}
+            {S: ['a'+S, 'A'], 'a'+S: ['aA'], 'A': ['a']},
+            S
         )
         self.assertFalse(IdentificadorGramaticaLivreDeContexto(gramatica).identificar())
 
         gramatica = Gramatica(
             [S, 'A'],
             ['a'],
-            {S: ['a'+S, 'A'], 'a': ['aA'], 'A': ['a']}
+            {S: ['a'+S, 'A'], 'a': ['aA'], 'A': ['a']},
+            S
         )
         self.assertFalse(IdentificadorGramaticaLivreDeContexto(gramatica).identificar())
 
@@ -58,7 +62,8 @@ class IdentificadorGramaticaLivreDeContextoTest(unittest.TestCase):
         gramatica = Gramatica(
             [S, 'A'],
             ['a'],
-            {S: ['a'+S, 'A', 'aa'], 'A': ['a']}
+            {S: ['a'+S, 'A', 'aa'], 'A': ['a']},
+            S
         )
         self.assertTrue(IdentificadorGramaticaLivreDeContexto(gramatica).identificar())
 
@@ -70,6 +75,7 @@ class IdentificadorGramaticaLivreDeContextoTest(unittest.TestCase):
         gramatica = Gramatica(
             [S, 'A'],
             ['a'],
-            {S: ['a'+S, 'A', 'aa', ''], 'A': ['a']}
+            {S: ['a'+S, 'A', 'aa', ''], 'A': ['a']},
+            S
         )
         self.assertFalse(IdentificadorGramaticaLivreDeContexto(gramatica).identificar())

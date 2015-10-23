@@ -12,7 +12,7 @@ class GramaticaTest(unittest.TestCase):
     }
 
     def setUp(self):
-        self.gramatica = Gramatica(self.NAO_TERMINAIS, self.TERMINAIS, self.CONJUNTO_PRODUCOES)
+        self.gramatica = Gramatica(self.NAO_TERMINAIS, self.TERMINAIS, self.CONJUNTO_PRODUCOES, S)
 
     def test_simbolos_nao_terminais(self):
         self.assertEqual(self.gramatica.simbolos_nao_terminais, self.NAO_TERMINAIS)

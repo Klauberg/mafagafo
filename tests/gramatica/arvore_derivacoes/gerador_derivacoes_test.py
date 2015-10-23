@@ -12,7 +12,8 @@ class GeradorDerivacoesTest(unittest.TestCase):
                 'S': ['aBAa'],
                 'A': ['b', 'cA'],
                 'B': ['c', 'd']
-            }
+            },
+            'S'
         )
 
         gd = GeradorDerivacoes(gramatica)
@@ -23,7 +24,8 @@ class GeradorDerivacoesTest(unittest.TestCase):
         gramatica = Gramatica(
             ['S'],
             ['a'],
-            {'S': ['a']}
+            {'S': ['a']},
+            'S'
         )
 
         gd = GeradorDerivacoes(gramatica)

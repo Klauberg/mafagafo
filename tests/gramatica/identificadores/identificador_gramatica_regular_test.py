@@ -15,7 +15,8 @@ class IdentificadorGramaticaRegularTest(unittest.TestCase):
         gramatica = Gramatica(
             [S, 'A'],
             ['a'],
-            {S: ['a', 'aA'], 'A': ['a']}
+            {S: ['a', 'aA'], 'A': ['a']},
+            S
         )
         self.assertTrue(IdentificadorGramaticaRegular(gramatica).identificar())
 
@@ -27,7 +28,8 @@ class IdentificadorGramaticaRegularTest(unittest.TestCase):
         gramatica = Gramatica(
             [S, 'A'],
             ['a'],
-            {S: ['A'+S, 'A'], 'A'+S: ['a'+S], 'A': ['a']}
+            {S: ['A'+S, 'A'], 'A'+S: ['a'+S], 'A': ['a']},
+            S
         )
         self.assertFalse(IdentificadorGramaticaRegular(gramatica).identificar())
 
@@ -38,14 +40,16 @@ class IdentificadorGramaticaRegularTest(unittest.TestCase):
         gramatica = Gramatica(
             [S, 'A'],
             ['a'],
-            {S: ['aS', 'A'], 'a'+S: ['aA'], 'A': ['a']}
+            {S: ['aS', 'A'], 'a'+S: ['aA'], 'A': ['a']},
+            S
         )
         self.assertFalse(IdentificadorGramaticaRegular(gramatica).identificar())
 
         gramatica = Gramatica(
             [S, 'A'],
             ['a'],
-            {S: ['a'+S, 'A'], 'a': ['aA'], 'A': ['a']}
+            {S: ['a'+S, 'A'], 'a': ['aA'], 'A': ['a']},
+            S
         )
         self.assertFalse(IdentificadorGramaticaRegular(gramatica).identificar())
 
@@ -56,7 +60,8 @@ class IdentificadorGramaticaRegularTest(unittest.TestCase):
         gramatica = Gramatica(
             [S, 'A'],
             ['a'],
-            {S: ['aA'], 'A': ['a']}
+            {S: ['aA'], 'A': ['a']},
+            S
         )
         self.assertTrue(IdentificadorGramaticaRegular(gramatica).identificar())
 
@@ -67,7 +72,8 @@ class IdentificadorGramaticaRegularTest(unittest.TestCase):
         gramatica = Gramatica(
             [S, 'A'],
             ['a'],
-            {S: ['aA'], 'A': ['aA', 'a']}
+            {S: ['aA'], 'A': ['aA', 'a']},
+            S
         )
         self.assertTrue(IdentificadorGramaticaRegular(gramatica).identificar())
 
@@ -78,7 +84,8 @@ class IdentificadorGramaticaRegularTest(unittest.TestCase):
         gramatica = Gramatica(
             [S, 'A'],
             ['a'],
-            {S: ['aA'], 'A': ['Aa', 'a']}
+            {S: ['aA'], 'A': ['Aa', 'a']},
+            S
         )
         self.assertFalse(IdentificadorGramaticaRegular(gramatica).identificar())
 
@@ -89,7 +96,8 @@ class IdentificadorGramaticaRegularTest(unittest.TestCase):
         gramatica = Gramatica(
             [S, 'A'],
             ['a'],
-            {S: ['aA'], 'A': ['aa', 'a']}
+            {S: ['aA'], 'A': ['aa', 'a']},
+            S
         )
         self.assertFalse(IdentificadorGramaticaRegular(gramatica).identificar())
 
@@ -100,6 +108,7 @@ class IdentificadorGramaticaRegularTest(unittest.TestCase):
         gramatica = Gramatica(
             [S, 'A'],
             ['a'],
-            {S: ['A'], 'A': ['a']}
+            {S: ['A'], 'A': ['a']},
+            S
         )
         self.assertFalse(IdentificadorGramaticaRegular(gramatica).identificar())

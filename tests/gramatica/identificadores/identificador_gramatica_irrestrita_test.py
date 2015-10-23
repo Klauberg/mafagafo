@@ -12,7 +12,8 @@ class IdentificadorGramaticaIrrestritaTest(unittest.TestCase):
         gramatica = Gramatica(
             [S, 'A'],
             ['a'],
-            {S: ['a', 'aA'], 'A': ['a']}
+            {S: ['a', 'aA'], 'A': ['a']},
+            S
         )
         self.assertTrue(IdentificadorGramaticaIrrestrita(gramatica).identificar())
 
@@ -21,7 +22,8 @@ class IdentificadorGramaticaIrrestritaTest(unittest.TestCase):
         gramatica = Gramatica(
             [S, 'A'],
             ['a'],
-            {S: ['A'+S, 'A'], 'a': ['a']}
+            {S: ['A'+S, 'A'], 'a': ['a']},
+            S
         )
         self.assertFalse(IdentificadorGramaticaIrrestrita(gramatica).identificar())
 
@@ -30,7 +32,8 @@ class IdentificadorGramaticaIrrestritaTest(unittest.TestCase):
         gramatica = Gramatica(
             [S, 'A'],
             ['a'],
-            {S: ['a'+S, 'A', 'aa'], 'A': ['a']}
+            {S: ['a'+S, 'A', 'aa'], 'A': ['a']},
+            S
         )
         self.assertTrue(IdentificadorGramaticaIrrestrita(gramatica).identificar())
 
@@ -39,6 +42,7 @@ class IdentificadorGramaticaIrrestritaTest(unittest.TestCase):
         gramatica = Gramatica(
             [S, 'A'],
             ['a'],
-            {S: ['a'+S, 'A', 'aa', ''], 'A': ['a']}
+            {S: ['a'+S, 'A', 'aa', ''], 'A': ['a']},
+            S
         )
         self.assertTrue(IdentificadorGramaticaIrrestrita(gramatica).identificar())

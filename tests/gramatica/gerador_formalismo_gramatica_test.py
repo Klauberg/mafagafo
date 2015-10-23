@@ -13,7 +13,8 @@ class GeradorFormalismoGramaticaTest(unittest.TestCase):
                 S: ['AB', 'b'],
                 'A': ['aAB', 'Aa', X],
                 'B': ['b', 'bB']
-            }
+            },
+            S
         )
 
         str = 'G = ({S, A, B}, {a, b, c}, P, %s)' % S
@@ -33,7 +34,8 @@ class GeradorFormalismoGramaticaTest(unittest.TestCase):
             {
                 S: ['aSc', 'A'],
                 'A': ['b', 'bA']
-            }
+            },
+            S
         )
 
         str = 'G = ({S, A}, {a, b, c}, P, %s)' % S

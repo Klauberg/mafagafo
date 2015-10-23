@@ -15,7 +15,8 @@ class IdentificadorGramaticaSensivelAoContextoTest(unittest.TestCase):
         gramatica = Gramatica(
             [S, 'A'],
             ['a'],
-            {S: ['a', 'aA'], 'A': ['a']}
+            {S: ['a', 'aA'], 'A': ['a']},
+            S
         )
         self.assertTrue(IdentificadorGramaticaSensivelAoContexto(gramatica).identificar())
 
@@ -27,7 +28,8 @@ class IdentificadorGramaticaSensivelAoContextoTest(unittest.TestCase):
         gramatica = Gramatica(
             [S, 'A'],
             ['a'],
-            {S: ['A'+S, 'A'], 'A'+S: ['a', 'aa'], 'A': ['a']}
+            {S: ['A'+S, 'A'], 'A'+S: ['a', 'aa'], 'A': ['a']},
+            S
         )
         self.assertFalse(IdentificadorGramaticaSensivelAoContexto(gramatica).identificar())
 
@@ -39,6 +41,7 @@ class IdentificadorGramaticaSensivelAoContextoTest(unittest.TestCase):
         gramatica = Gramatica(
             [S, 'A'],
             ['a'],
-            {S: ['a'+S, 'A', 'aa', ''], 'A': ['a']}
+            {S: ['a'+S, 'A', 'aa', ''], 'A': ['a']},
+            S
         )
         self.assertFalse(IdentificadorGramaticaLivreDeContexto(gramatica).identificar())
