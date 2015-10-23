@@ -53,9 +53,8 @@ class IdentificadorLinguagemPorInferencia:
                 if s.count(t2) == 0: return 0
                 if div == 0:
                     div = s.count(t1)/s.count(t2)
-                else:
-                    if div != s.count(t1)/s.count(t2):
-                        return 0
+                elif div != s.count(t1)/s.count(t2):
+                    return 0
         if div == 1: return 0
         return div
 
