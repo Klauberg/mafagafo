@@ -49,3 +49,5 @@ def validar_lado_esquerdo(simbolos):
 def validar_producao(producao):
     if not ':' in producao:
         return (False, 'Produção inválida')
+
+    return (True,)

@@ -42,6 +42,8 @@ def ler_conjunto_producoes(simbolos_nt, simbolos_t):
         if raw.strip() == '':
             break
 
+        verificar_validacao(validacoes.validar_producao(raw))
+
         esquerda = raw.split(':')[0].strip()
         direita = raw.split(':')[1].strip()
 
