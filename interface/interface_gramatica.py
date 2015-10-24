@@ -134,7 +134,7 @@ def iniciar():
     print 'Formalização:\n%s\n' % formalizacao
 
     tipo = IdentificadorTipoGramatica(gramatica).identificar()
-    print 'Tipo de gramática: %s\n' % tipo
+    print 'Tipo de gramática:\n%s\n' % tipo
 
     linguagem = IdentificadorLinguagemGramatica(gramatica).identificar()
     print 'Linguagem:\n%s\n' % linguagem
