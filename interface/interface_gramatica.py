@@ -2,8 +2,8 @@
 import sys
 import validacoes
 from gramatica import *
-from gramatica.arvore_derivacoes import ArvoreDerivacoes
 from constants import *
+from gramatica.arvore_derivacoes import ArvoreDerivacoes
 
 def ler_simbolos_nt():
     """Le e valida os simbolos não-terminais"""
