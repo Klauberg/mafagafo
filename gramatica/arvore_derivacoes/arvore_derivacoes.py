@@ -20,8 +20,7 @@ class ArvoreDerivacoes:
     def montar_sem_recursao(self):
         """Monta árvore de derivações sem recursão de símbolos NT"""
         self.limpar_arvore()
-        while self.gerar_novo_nivel(True):
-            pass
+        while self.gerar_novo_nivel(True): pass
         return self
 
     def gerar_novo_nivel(self, impedir_recursao):
