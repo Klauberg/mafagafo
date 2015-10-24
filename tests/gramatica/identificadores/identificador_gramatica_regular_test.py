@@ -2,7 +2,6 @@
 
 import unittest
 from constants import *
-from constants import SIMBOLO_INICIAL as S
 from gramatica import *
 from gramatica.identificadores import *
 
@@ -13,10 +12,10 @@ class IdentificadorGramaticaRegularTest(unittest.TestCase):
         como regular
         """
         gramatica = Gramatica(
-            [S, 'A'],
+            ['S', 'A'],
             ['a'],
-            {S: ['a', 'aA'], 'A': ['a']},
-            S
+            {'S': ['a', 'aA'], 'A': ['a']},
+            'S'
         )
         self.assertTrue(IdentificadorGramaticaRegular(gramatica).identificar())
 
@@ -26,10 +25,10 @@ class IdentificadorGramaticaRegularTest(unittest.TestCase):
         como regular
         """
         gramatica = Gramatica(
-            [S, 'A'],
+            ['S', 'A'],
             ['a'],
-            {S: ['A'+S, 'A'], 'A'+S: ['a'+S], 'A': ['a']},
-            S
+            {'S': ['AS', 'A'], 'AS': ['aS'], 'A': ['a']},
+            'S'
         )
         self.assertFalse(IdentificadorGramaticaRegular(gramatica).identificar())
 
@@ -38,18 +37,18 @@ class IdentificadorGramaticaRegularTest(unittest.TestCase):
         Gramática com esquerda com não-terminal não deve ser reconhecida como regular
         """
         gramatica = Gramatica(
-            [S, 'A'],
+            ['S', 'A'],
             ['a'],
-            {S: ['aS', 'A'], 'a'+S: ['aA'], 'A': ['a']},
-            S
+            {'S': ['aS', 'A'], 'aS': ['aA'], 'A': ['a']},
+            'S'
         )
         self.assertFalse(IdentificadorGramaticaRegular(gramatica).identificar())
 
         gramatica = Gramatica(
-            [S, 'A'],
+            ['S', 'A'],
             ['a'],
-            {S: ['a'+S, 'A'], 'a': ['aA'], 'A': ['a']},
-            S
+            {'S': ['aS', 'A'], 'a': ['aA'], 'A': ['a']},
+            'S'
         )
         self.assertFalse(IdentificadorGramaticaRegular(gramatica).identificar())
 
@@ -58,10 +57,10 @@ class IdentificadorGramaticaRegularTest(unittest.TestCase):
         Gramática com um T na direita deve ser reconhecida como regular
         """
         gramatica = Gramatica(
-            [S, 'A'],
+            ['S', 'A'],
             ['a'],
-            {S: ['aA'], 'A': ['a']},
-            S
+            {'S': ['aA'], 'A': ['a']},
+            'S'
         )
         self.assertTrue(IdentificadorGramaticaRegular(gramatica).identificar())
 
@@ -70,10 +69,10 @@ class IdentificadorGramaticaRegularTest(unittest.TestCase):
         Gramática com um T seguido de NT na direita deve ser reconhecida como regular
         """
         gramatica = Gramatica(
-            [S, 'A'],
+            ['S', 'A'],
             ['a'],
-            {S: ['aA'], 'A': ['aA', 'a']},
-            S
+            {'S': ['aA'], 'A': ['aA', 'a']},
+            'S'
         )
         self.assertTrue(IdentificadorGramaticaRegular(gramatica).identificar())
 
@@ -82,10 +81,10 @@ class IdentificadorGramaticaRegularTest(unittest.TestCase):
         Gramática com um T seguido de NT na direita não deve ser reconhecida como regular
         """
         gramatica = Gramatica(
-            [S, 'A'],
+            ['S', 'A'],
             ['a'],
-            {S: ['aA'], 'A': ['Aa', 'a']},
-            S
+            {'S': ['aA'], 'A': ['Aa', 'a']},
+            'S'
         )
         self.assertFalse(IdentificadorGramaticaRegular(gramatica).identificar())
 
@@ -94,10 +93,10 @@ class IdentificadorGramaticaRegularTest(unittest.TestCase):
         Gramática com mais de um T seguido na direita não deve ser reconhecida como regular
         """
         gramatica = Gramatica(
-            [S, 'A'],
+            ['S', 'A'],
             ['a'],
-            {S: ['aA'], 'A': ['aa', 'a']},
-            S
+            {'S': ['aA'], 'A': ['aa', 'a']},
+            'S'
         )
         self.assertFalse(IdentificadorGramaticaRegular(gramatica).identificar())
 
@@ -106,9 +105,9 @@ class IdentificadorGramaticaRegularTest(unittest.TestCase):
         Gramática com apenas um NT na direita não deve ser reconhecida como regular
         """
         gramatica = Gramatica(
-            [S, 'A'],
+            ['S', 'A'],
             ['a'],
-            {S: ['A'], 'A': ['a']},
-            S
+            {'S': ['A'], 'A': ['a']},
+            'S'
         )
         self.assertFalse(IdentificadorGramaticaRegular(gramatica).identificar())

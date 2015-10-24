@@ -1,18 +1,17 @@
 import unittest
 from gramatica import *
 from constants import *
-from constants import SIMBOLO_INICIAL as S
 
 class GramaticaTest(unittest.TestCase):
-    NAO_TERMINAIS = [S, 'A']
+    NAO_TERMINAIS = ['S', 'A']
     TERMINAIS = ['a', 'b']
     CONJUNTO_PRODUCOES = {
-        S: ['aA', 'a'],
+        'S': ['aA', 'a'],
         'A': ['b', 'A']
     }
 
     def setUp(self):
-        self.gramatica = Gramatica(self.NAO_TERMINAIS, self.TERMINAIS, self.CONJUNTO_PRODUCOES, S)
+        self.gramatica = Gramatica(self.NAO_TERMINAIS, self.TERMINAIS, self.CONJUNTO_PRODUCOES, 'S')
 
     def test_simbolos_nao_terminais(self):
         self.assertEqual(self.gramatica.simbolos_nao_terminais, self.NAO_TERMINAIS)
