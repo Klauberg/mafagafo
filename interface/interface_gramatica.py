@@ -5,25 +5,6 @@ from gramatica import *
 from constants import *
 from gramatica.arvore_derivacoes import ArvoreDerivacoes
 
-def ler_simbolos_nt():
-    """Le e valida os simbolos não-terminais"""
-    print 'Preencha os símbolos não terminais separados por vírgula:'
-    raw = raw_input()
-    simbolos = remover_duplicados(raw.split(','))
-    validacao = validacoes.validar_simbolos_nt(simbolos)
-    verificar_validacao(validacao)
-    simbolos.insert(0, simbolos.pop(simbolos.index(SIMBOLO_INICIAL)))
-    return simbolos
-
-def ler_simbolos_t():
-    """Le e valida os simbolos terminais"""
-    print 'Preencha os símbolos terminais separados por vírgula:'
-    raw = raw_input()
-    simbolos = remover_duplicados(raw.split(','))
-    validacao = validacoes.validar_simbolos_t(simbolos)
-    verificar_validacao(validacao)
-    return simbolos
-
 def ler_conjunto_producoes(simbolos_nt, simbolos_t):
     print 'Insira as produções para cada símbolo, uma por linha.'
     print 'Use o caractere : para separar o lado da esquerda do lado da direita.'
@@ -81,17 +62,14 @@ def adicionar_novo_simbolo(lista, simbolo):
 
 def ler_linha_conjunto_producoes(linha, conjunto_producoes):
     separacao = linha.split(':')
-    if len(separacao) < 2:
+    if len(separacao) != 2:
         print 'Erro de formato'
-        return
+        sys.exit()
 
     esquerda = separacao[0].strip()
     direita = separacao[1]
     partes = direita.replace(SIMBOLO_SENTENCA_VAZIA, '').split('|')
     conjunto_producoes[esquerda] = partes
-
-def remover_duplicados(lista):
-    return sorted(set(lista))
 
 def verificar_validacao(validacao):
     """
