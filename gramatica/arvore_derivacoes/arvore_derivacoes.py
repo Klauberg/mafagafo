@@ -13,16 +13,24 @@ class ArvoreDerivacoes:
         self.limpar_arvore()
 
     def limpar_arvore(self):
+        """Volta a árvore para seu estado inicial"""
         self.raiz = NoArvoreDerivacoes(self.gramatica.simbolo_inicial)
         self.folhas = [self.raiz]
 
     def montar_sem_recursao(self):
+        """Monta árvore de derivações sem recursão de símbolos NT"""
         self.limpar_arvore()
         while self.gerar_novo_nivel(True):
             pass
         return self
 
     def gerar_novo_nivel(self, impedir_recursao):
+        """
+        Gera novo nível de derivações para a árvore.
+        Defina o parâmetro impedir_recursao como True se você não quiser gerar
+        novos níveis para nós que possuem sentenças com símbolos não-terminais que
+        já foram derivados para chegar até ele.
+        """
         progresso = False
         nova_lista_folhas = []
 
@@ -48,13 +56,18 @@ class ArvoreDerivacoes:
         return progresso
 
     def pode_gerar_sentenca_finita(self):
-        """Verifica se a gramática pode gerar ao menos uma sentença finita"""
+        """
+        Verifica se a gramática pode gerar ao menos uma sentença finita.
+        A árvore já deve estar montada para chamar este método.
+        """
         return any(not sentenca_contem_nt(no.sentenca) for no in self.folhas)
 
     def buscar_nos_de_sentencas_finais(self):
+        """Busca nós das sentenças finais na árvore"""
         return [no for no in self.folhas if sentenca_eh_final(no.sentenca)]
 
     def buscar_sentencas_finais(self):
+        """Busca todas as sentenças finais geradas na árvore"""
         return [no.sentenca for no in self.buscar_nos_de_sentencas_finais()]
 
     def buscar_sentencas_minimas(self):
