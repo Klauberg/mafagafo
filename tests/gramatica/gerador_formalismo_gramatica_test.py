@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import unittest
 from gramatica import *
 from gramatica.gerador_formalismo_gramatica import *

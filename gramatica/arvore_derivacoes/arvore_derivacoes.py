@@ -4,7 +4,6 @@ from no_arvore_derivacoes import *
 from gerador_derivacoes import *
 from gramatica.util import *
 from constants import *
-from collections import deque
 
 class ArvoreDerivacoes:
     def __init__(self, gramatica):
