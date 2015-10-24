@@ -79,16 +79,6 @@ def adicionar_novo_simbolo(lista, simbolo):
     lista.append(simbolo)
     return None
 
-def buscar_simbolos_t(conjunto_producoes):
-    for s in conjunto_producoes:
-        print s[0]
-        print s[1]
-        print 
-    return None
-
-def buscar_simbolos_nt(conjunto_producoes):
-    return None
-
 def ler_linha_conjunto_producoes(linha, conjunto_producoes):
     separacao = linha.split(':')
     if len(separacao) < 2:
