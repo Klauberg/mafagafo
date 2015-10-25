@@ -18,7 +18,11 @@ class IdentificadorLinguagemPorInferencia:
                 lista.update({c:'-'})
         for l in lista:
             for l2 in lista:
-                if l!=l2 and self.verificar_mesma_quantia(l, l2):
+                if self.verificar_mesma_quantidade(l):
+                    vmin = self.verificar_minimo(l)
+                    lista[l] = self.ALFABETO_VARIAVEIS[count]+'='+str(vmin)
+                    count+=1
+                elif l!=l2 and self.verificar_mesma_quantia(l, l2):
                     vmin = self.verificar_minimo(l)
                     lista[l] = self.ALFABETO_VARIAVEIS[count]+'>='+str(vmin)
                     lista[l2] = self.ALFABETO_VARIAVEIS[count]+'>='+str(vmin)
@@ -66,5 +70,14 @@ class IdentificadorLinguagemPorInferencia:
     def verificar_mesma_quantia(self, t1, t2):
         for s in self.sentencas:
             if s.count(t1) != s.count(t2):
+                return False
+        return True
+
+    def verificar_mesma_quantidade(self, t1):
+        quantidade = -1
+        for s in self.sentencas:
+            if quantidade == -1:
+                quantidade = s.count(t1)
+            elif s.count(t1) != quantidade:
                 return False
         return True 
