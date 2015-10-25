@@ -4,45 +4,46 @@ import sys
 from constants import *
 
 class IdentificadorLinguagemPorInferencia:
+    #usar apenas um caractere por variavel
     ALFABETO_VARIAVEIS = ['m', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'x', 'w', 'y', 'z']
 
     def __init__(self, sentencas):
         self.sentencas = sentencas
 
     def identificar(self):
-        lista = {} # lista que representa cada sentenca
+        lista = {} #lista que representa cada sentença
+        count = 0
         for s in self.sentencas:
             for c in s:
                 lista.update({c:'-'})
         for l in lista:
-            vmin = self.verificar_minimo(l)
-            lista.update({l:'>='+str(vmin)})
-        for l in lista:
             for l2 in lista:
-                if l!=l2 and self.verificar_multiplo(l, l2)!=0:
-                    lista[l] = '='+str(self.verificar_multiplo(l, l2))+l2 
+                if l!=l2 and self.verificar_mesma_quantia(l, l2):
+                    vmin = self.verificar_minimo(l)
+                    lista[l] = self.ALFABETO_VARIAVEIS[count]+'>='+str(vmin)
+                    lista[l2] = self.ALFABETO_VARIAVEIS[count]+'>='+str(vmin)
+                    count+=1
+                elif l!=l2 and self.verificar_multiplo(l, l2)!=0:
+                    lista[l] = '='+str(self.verificar_multiplo(l, l2))+l2
+                elif lista[l]=='-':
+                    vmin = self.verificar_minimo(l)
+                    lista[l] = self.ALFABETO_VARIAVEIS[count]+'>='+str(vmin)
+                    count+=1                
 
         return self.formalizar(lista)
 
     def formalizar(self, lista):
-        variaveis = {}
-        count = 0
-        for l in lista:
-            if not lista[l] in variaveis:
-                variaveis.update({lista[l]:self.ALFABETO_VARIAVEIS[count]})
-                count+=1
+        print '***** lista'
+        print lista
+        print '*****'
 
         lista_simbolos = []
         for l in lista:
-            lista_simbolos.append(l+'^'+variaveis[lista[l]])
+            lista_simbolos.append(l+'^'+lista[l][0])
 
         quantidades_simbolos = []
-        for v in variaveis:
-            if not '>' in v:
-                last = v[-1] # pega o ultimo caractere v = '=2a' -> last = 'a'
-                quantidades_simbolos.append(variaveis[v]+v.replace(last, variaveis[lista[last]]))
-            else:
-                quantidades_simbolos.append(variaveis[v]+str(v))
+        for l in lista:
+            quantidades_simbolos.append(lista[l])
 
         return 'L = { %s | %s }' % (', '.join(lista_simbolos), ', '.join(quantidades_simbolos))
 
@@ -64,3 +65,10 @@ class IdentificadorLinguagemPorInferencia:
             if s.count(t) < minimo:
                 minimo = s.count(t)
         return minimo
+
+    def verificar_mesma_quantia(self, t1, t2):
+        print '&&& '+t1+' &&& '+t2
+        for s in self.sentencas:
+            if s.count(t1) != s.count(t2):
+                return False
+            else: return True 
