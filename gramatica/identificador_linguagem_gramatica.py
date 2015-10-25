@@ -12,6 +12,9 @@ class IdentificadorLinguagemGramatica:
         self.arvore_derivacoes = ArvoreDerivacoes(gramatica).montar_sem_recursao()
 
     def identificar(self):
+        if not self.arvore_derivacoes.pode_gerar_sentenca_finita():
+            return None
+
         sentencas = [no.sentenca for no in self.arvore_derivacoes.folhas]
 
         if any(sentenca_contem_nt(s) for s in sentencas):

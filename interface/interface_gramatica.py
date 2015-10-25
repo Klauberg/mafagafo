@@ -95,6 +95,13 @@ def imprimir_derivacoes_sentencas(nos):
 
         print (' -> '.join(derivacoes)) + ' -> ' + (SIMBOLO_SENTENCA_VAZIA if no.sentenca == '' else no.sentenca)
 
+def imprimir_linguagem(linguagem):
+    if linguagem is None:
+        print 'Não é possível identificar a linguagem dessa gramática, pois ela não ' \
+              'é capaz de gerar nenhuma sentença finita.'
+    else:
+        print linguagem
+
 def iniciar():
     simbolos_nt = []
     simbolos_t = []
@@ -108,7 +115,9 @@ def iniciar():
     print 'Tipo de gramática:\n%s\n' % tipo
 
     linguagem = IdentificadorLinguagemGramatica(gramatica).identificar()
-    print 'Linguagem:\n%s\n' % linguagem
+    print 'Linguagem:'
+    imprimir_linguagem(linguagem)
+    print
 
     gerador_sentencas = GeradorSentencas(gramatica)
     sentencas_geradas = gerador_sentencas.gerar(10)
