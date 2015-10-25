@@ -39,7 +39,8 @@ class IdentificadorLinguagemPorInferencia:
 
         quantidades_simbolos = []
         for l in lista:
-            quantidades_simbolos.append(lista[l])
+            if not any(lista[l][0] in q for q in quantidades_simbolos):
+                quantidades_simbolos.append(lista[l])
 
         return 'L = { %s | %s }' % (', '.join(lista_simbolos), ', '.join(quantidades_simbolos))
 
