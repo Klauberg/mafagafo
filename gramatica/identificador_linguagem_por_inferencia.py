@@ -5,7 +5,7 @@ from constants import *
 
 class IdentificadorLinguagemPorInferencia:
     #usar apenas um caractere por variavel
-    ALFABETO_VARIAVEIS = ['m', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'x', 'w', 'y', 'z']
+    ALFABETO_VARIAVEIS = ['m', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'x', 'w', 'y', 'z']
 
     def __init__(self, sentencas):
         self.sentencas = sentencas
@@ -33,10 +33,6 @@ class IdentificadorLinguagemPorInferencia:
         return self.formalizar(lista)
 
     def formalizar(self, lista):
-        print '***** lista'
-        print lista
-        print '*****'
-
         lista_simbolos = []
         for l in lista:
             lista_simbolos.append(l+'^'+lista[l][0])
@@ -67,7 +63,6 @@ class IdentificadorLinguagemPorInferencia:
         return minimo
 
     def verificar_mesma_quantia(self, t1, t2):
-        print '&&& '+t1+' &&& '+t2
         for s in self.sentencas:
             if s.count(t1) != s.count(t2):
                 return False
