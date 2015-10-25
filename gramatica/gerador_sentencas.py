@@ -17,7 +17,7 @@ class GeradorSentencas:
             nos_finais = arvore_derivacoes.buscar_nos_de_sentencas_finais()
             quantidade_gerada = len(nos_finais)
 
-            if len(arvore_derivacoes.folhas) == len(nos_finais) or quantidade_gerada >= quantidade_requisitada:
+            if len(arvore_derivacoes.folhas) == quantidade_gerada or quantidade_gerada >= quantidade_requisitada:
                 nos_finais.sort(key = lambda x: x.quantidade_derivacoes())
                 if quantidade_gerada > quantidade_requisitada:
                     nos_finais = nos_finais[:quantidade_requisitada]
