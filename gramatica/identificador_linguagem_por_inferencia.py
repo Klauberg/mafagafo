@@ -28,6 +28,10 @@ class IdentificadorLinguagemPorInferencia:
                     lista[l2] = self.ALFABETO_VARIAVEIS[count]+'>='+str(vmin)
                     count+=1
                 elif l!=l2 and self.verificar_multiplo(l, l2)!=0:
+                    if lista[l2][0] == '-':
+                        vmin = self.verificar_minimo(l2)
+                        lista[l2] = self.ALFABETO_VARIAVEIS[count]+'>='+str(vmin)
+                        count+=1 
                     lista[l] = self.ALFABETO_VARIAVEIS[count]+'='+str(self.verificar_multiplo(l, l2))+lista[l2][0]
                     count+=1
                 elif lista[l]=='-':
@@ -43,7 +47,7 @@ class IdentificadorLinguagemPorInferencia:
 
         quantidades_simbolos = []
         for l in lista:
-            if not any(lista[l][0] in q for q in quantidades_simbolos):
+            if not any(lista[l][0] in q[0] for q in quantidades_simbolos):
                 quantidades_simbolos.append(lista[l])
 
         return 'L = { %s | %s }' % (', '.join(lista_simbolos), ', '.join(quantidades_simbolos))
@@ -80,4 +84,4 @@ class IdentificadorLinguagemPorInferencia:
                 quantidade = s.count(t1)
             elif s.count(t1) != quantidade:
                 return False
-        return True 
+        return True
