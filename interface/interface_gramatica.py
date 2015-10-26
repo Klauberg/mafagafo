@@ -6,10 +6,12 @@ from constants import *
 from gramatica.arvore_derivacoes import ArvoreDerivacoes
 
 def ler_conjunto_producoes(simbolos_nt, simbolos_t):
-    print 'Insira as produções para cada símbolo, uma por linha.'
+    print 'Manipulador de Gramáticas e Autômatos Finitos'
+    print '---------------------------------------------'
+    print 'Insira as produções da gramática para cada símbolo, uma por linha.'
     print 'Use o caractere : para separar o lado da esquerda do lado da direita.'
-    print 'Use | para separar as partes da produção.'
-    print 'O símbolo à esquerda no primeiro conjunto de produções será o inicial.'
+    print 'Use | para separar as produções.'
+    print 'O símbolo não-terminal à esquerda no primeiro conjunto de produções será o inicial.'
     print 'Exemplo: S:aA|a'
     print '         A:b|aA'
     print
