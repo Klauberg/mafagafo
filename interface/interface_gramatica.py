@@ -50,16 +50,9 @@ def ler_conjunto_producoes(simbolos_nt, simbolos_t):
         verificar_validacao(validacao)
         
         ler_linha_conjunto_producoes(raw, conjunto_producoes)
-    print '##### conjunto de produções ####'
-    print conjunto_producoes
-    print '################################'
-    print '##### simbolo não terminais ####'
-    print simbolos_nt
-    print '################################'
 
-    if not all(any(nt in p for p in conjunto_producoes)for nt in simbolos_nt):
-        print 'Simbolo não terminal está sem produção'
-        sys.exit()
+    validacao = validacoes.validar_conjunto_producoes(conjunto_producoes, simbolos_nt)
+    verificar_validacao(validacao)
 
     return (simbolo_inicial, conjunto_producoes)
 

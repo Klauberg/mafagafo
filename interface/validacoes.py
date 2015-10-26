@@ -17,3 +17,9 @@ def validar_producao(producao):
         return (False, 'Produção inválida')
 
     return (True,)
+
+def validar_conjunto_producoes(conjunto_producoes, simbolos_nt):
+    if not all(any(nt in p for p in conjunto_producoes)for nt in simbolos_nt):
+        return (False, 'Símbolo não terminal está sem produção')
+    
+    return (True,)
