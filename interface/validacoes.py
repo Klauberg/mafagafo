@@ -12,6 +12,13 @@ def validar_lado_esquerdo(simbolos):
 
     return (True,)
 
+def validar_simbolo_inicial(simbolo_inicial):
+    if not re.match('^[A-Z]$', simbolo_inicial):
+        return (False, 'Símbolo inicial inválido. Deve ser um caractere ' \
+            'maiúsculo (símbolo não-terminal).')
+
+    return (True,)
+
 def validar_producao(producao):
     if not ':' in producao:
         return (False, 'Produção inválida')

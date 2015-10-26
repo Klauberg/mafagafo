@@ -32,6 +32,8 @@ def ler_conjunto_producoes(simbolos_nt, simbolos_t):
 
         if simbolo_inicial is None:
             simbolo_inicial = esquerda
+            validacao = validacoes.validar_simbolo_inicial(simbolo_inicial)
+            verificar_validacao(validacao)
 
         for c in esquerda:
             if not c == SIMBOLO_SENTENCA_VAZIA:
