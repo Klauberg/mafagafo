@@ -26,7 +26,7 @@ P = {
 }
 ```
 
-Para utilizar este programa, po usuário precisa entrar com a definição da gramática. Para isso, o usuário deve iniciar com as regras de produção, separando o lado da esquerda do lado direito com o caractere `:`. Para a gramática do exemplo acima, o usuário deve digitar a seguinte entrada, utilizando a tecla <kbd>Enter</kbd> para quebrar as linhas:
+Para utilizar este programa, o usuário precisa entrar com a definição da gramática. Para isso, o usuário deve iniciar com as regras de produção, separando o lado da esquerda do lado direito com o caractere `:`. Para a gramática do exemplo acima, o usuário deve digitar a seguinte entrada, utilizando a tecla <kbd>Enter</kbd> para quebrar as linhas:
 
 ```
 S:aA|a
