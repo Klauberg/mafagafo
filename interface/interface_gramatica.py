@@ -8,7 +8,7 @@ from gramatica.arvore_derivacoes import ArvoreDerivacoes
 def ler_conjunto_producoes(simbolos_nt, simbolos_t):
     print 'Manipulador de Gramáticas e Autômatos Finitos'
     print '---------------------------------------------'
-    print 'Insira as produções da gramática para cada símbolo, uma por linha.'
+    print 'Insira as regras de produção da gramática, uma por linha.'
     print 'Use o caractere : para separar o lado da esquerda do lado da direita.'
     print 'Use | para separar as produções.'
     print 'O símbolo não-terminal à esquerda no primeiro conjunto de produções será o inicial.'
