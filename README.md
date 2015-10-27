@@ -9,7 +9,7 @@ Alunos: Eduardo Cortes, Guilherme Sehn, Gustavo Marchesan
 ![mafagafo](https://cloud.githubusercontent.com/assets/830208/10118867/a42e6040-645a-11e5-8fbe-29333ffdf074.png)
 
 ## Como funciona
-Uma gramática formal é formalmente definida como uma tupla (*N*, *Σ*, *P*, *S*), onde:
+Uma gramática é formalmente definida como uma tupla (*N*, *Σ*, *P*, *S*), onde:
 
 - *N* é o conjunto finito de símbolos não-terminais usados na gramática, que neste programa são representados por caracteres maiúsculos (A-Z), com exceção de X, que representa sentença vazia.
 - *Σ* é o conjunto finito de símbolos terminais usados na gramática, que neste programa são representados por caracteres minúsculos (a-z).
