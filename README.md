@@ -2,7 +2,9 @@
 
 Manipulador de Gramáticas e Autômatos Finitos
 
-Trabalho Prático de Linguagens Formais - UNISC 2015/2 
+Trabalho Prático de Linguagens Formais - UNISC 2015/2
+
+Alunos: Eduardo Cortes, Guilherme Sehn, Gustavo Marchesan
 
 ![mafagafo](https://cloud.githubusercontent.com/assets/830208/10118867/a42e6040-645a-11e5-8fbe-29333ffdf074.png)
 
@@ -46,6 +48,8 @@ A partir das regras de produção, o programa irá automaticamente extrair os s�
 Para executar o programa, é necessário ter o Python 2.7+ instalado no computador. A versão 3+ não é suportada.
 
 Dentro do diretório do projeto executar `python -B mgaf.py`
+
+Exemplo de execução:
 
 ![Funcionamento](https://cloud.githubusercontent.com/assets/830208/10746319/b3a4a348-7c30-11e5-9146-8c5f944854b3.png)
 
