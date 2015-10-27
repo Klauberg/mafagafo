@@ -26,7 +26,7 @@ P = {
 }
 ```
 
-Para utilizar este programa, o usuário precisa entrar com a definição da gramática. Para isso, o usuário deve iniciar com as regras de produção, separando o lado da esquerda do lado direito com o caractere `:`. Para a gramática do exemplo acima, o usuário deve digitar a seguinte entrada, utilizando a tecla <kbd>Enter</kbd> para quebrar as linhas:
+Para utilizar este programa, o usuário precisa entrar com a definição da gramática. Para isso, você deve iniciar com as regras de produção, separando o lado esquerdo do lado direito com o caractere `:`. Para a gramática do exemplo acima, o usuário deve digitar a seguinte entrada, utilizando a tecla <kbd>Enter</kbd> para quebrar as linhas:
 
 ```
 S:aA|a
@@ -37,7 +37,7 @@ Para finalizar a entrada das regras de inclusão, teclar <kbd>Enter</kbd> mais u
 
 A partir das regras de produção, o programa irá automaticamente extrair os símbolos terminais (*N*), não-terminais (*Σ*) e símbolo inicial (*S*). O símbolo ao lado esquerdo do primeiro conjunto de regras é definido como símbolo inicial (*S*).
 
-A partir dos dados extraídos, o aplicativo irá:
+A partir destas informações extraídas, o aplicativo irá:
 
 - Gerar o formalismo da gramática
 - Identificar o tipo (GI - gramática irregular, GSC - gramática sensível ao contexto, GLC - gramática livre de contexto, GR - gramática regular)
