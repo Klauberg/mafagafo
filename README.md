@@ -31,14 +31,14 @@ P = {
 }
 ```
 
-Para entrar com a definição da gramática no programa, o usuário deve iniciar com as regras de produção, separando o lado da esquerda da direita com o caractere `:`. Para a gramática acima, o usuário deve digitar a seguinte entrada:
+Para entrar com a definição da gramática no programa, o usuário deve iniciar com as regras de produção, separando o lado da esquerda do lado direito com o caractere `:`. Para a gramática acima, o usuário deve digitar a seguinte entrada, utilizando a tecla <kbd>Enter</kbd> para quebrar a linha:
 
 ```
 S:aA|a
 A:b|aA
 ```
 
-Para finalizar a entrada das regras de inclusão, teclar `enter` uma vez a mais.
+Para finalizar a entrada das regras de inclusão, teclar <kbd>Enter</kbd> mais uma vez.
 
 A partir das regras de produção, o programa irá automaticamente extrair os símbolos terminais (*N*), não-terminais (*Σ*) e símbolo inicial (*S*). O símbolo ao lado esquerdo do primeiro conjunto de regras é definido como símbolo inicial (*S*).
 
