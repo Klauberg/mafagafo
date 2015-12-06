@@ -4,4 +4,4 @@ from identificador_tipo_gramatica import *
 from identificador_linguagem_gramatica import *
 from identificador_linguagem_por_inferencia import *
 from gerador_sentencas import *
-from gerador_automato_linguagem import *
+from automato_finito import *
