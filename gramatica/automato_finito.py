@@ -14,14 +14,16 @@ class AutomatoFinito:
     def reconhecer(self, atual, sentenca, automato):
         print atual+' '+sentenca;
         if sentenca == '': return atual
+        acho = False
         for x in automato['regras'][atual]:
             if sentenca[0] in automato['regras'][atual][x]:
+                acho = True
                 atual = x
                 sentenca = sentenca[1:];
                 if self.reconhecer(atual, sentenca, automato) != '': return atual 
-
-        else:
+        if not acho:
             return ''
+
             
     def testar(self):
         #exemplo de estrutura de um automato
