@@ -130,3 +130,6 @@ def iniciar():
     sentencas_geradas = gerador_sentencas.gerar(10)
     print 'Sentenças geradas:'
     imprimir_derivacoes_sentencas(sentencas_geradas)
+
+    if tipo == 'GLC' or tipo == 'GR':
+        automato = GeradorAutomatoFinitoLinguagem(linguagem).gerar()
