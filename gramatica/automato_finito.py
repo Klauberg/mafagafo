@@ -12,22 +12,22 @@ class AutomatoFinito:
             print 'Automato Tipo 2\n'
             simbolos = self.linguagem.replace('{','').replace('}', '').split(',')
 
-    def reconhecer(self, atual, sentenca, automato):
-        print atual+' '+sentenca;
+    def reconhecer(self, estado_atual, sentenca, automato):
+        print estado_atual+' '+sentenca;
         if sentenca == '': 
-            if atual in automato['fim']: 
-                return True, atual 
+            if estado_atual in automato['fim']: 
+                return True, estado_atual 
             else:
-                return False, atual
-        if not atual in automato['regras']: return False, atual
-        for x in automato['regras'][atual]:
-            if x in automato['regras'][atual]: 
-                if sentenca[0] in automato['regras'][atual][x]:
-                    atual = x
+                return False, estado_atual
+        if not estado_atual in automato['regras']: return False, estado_atual
+        for x in automato['regras'][estado_atual]:
+            if x in automato['regras'][estado_atual]: 
+                if sentenca[0] in automato['regras'][estado_atual][x]:
+                    estado_atual = x
                     sentenca = sentenca[1:]
-                    saida = self.reconhecer(atual, sentenca, automato)
+                    saida = self.reconhecer(estado_atual, sentenca, automato)
                     if saida[0]: return True, saida[1]
-        return False, atual
+        return False, estado_atual
 
     #sentecas devem estar no formato '{a,aab,baa,bab}'
     def gerar_por_sentencas(self, sentencas):
@@ -35,7 +35,7 @@ class AutomatoFinito:
         #criando a estrutura do AF
         estados = ['q0']
         simbolos = []
-        regras = {'q0':{'q0':''}}
+        regras = {'q0':{}}
         inicio = 'q0'
         fim = []
 
@@ -49,26 +49,60 @@ class AutomatoFinito:
         automato = {'estados':estados, 'simbolos':simbolos, 'regras':regras, 'inicio':inicio, 'fim':fim}
 
         cont_estado = 0
+        estado_atual = inicio #começo no estado inicial já definido
 
-        for s in sen:
-            sentenca = s
-            atual = 'q0'
-            while len(sentenca)>0:
-                saida = self.reconhecer('q0', sentenca, automato)
-                if saida[0]:
-                    atual = saida[1]
-                    fim.append(atual)
-                    # ???
-                    automato = {'estados':estados, 'simbolos':simbolos, 'regras':regras, 'inicio':inicio, 'fim':fim}
-                    return automato
-                cont_estado += 1
-                novo = 'q'+cont_estado
-                estados.append(novo)
-                #ToDo - Criar uma função que adiciona um novo estados nas regras
-                #ToDo - O estado atual apontando pro estado novo, adiciona senteca[0]
-                sentenca = sentenca[1:]
-                atual = novo
-                if len(sentenca)==0: fim.append(novo)
+        for sentenca in sentencas:
+            
+            s = sentenca
+
+            # Se a sentença já consegue ser reconhecida pelo AF, então pulo pra próxima
+            if not self.reconhecer('q0', sentenca, automato)[0]:
+
+                #Verifico se o estado atual tem uma ligação para o primeiro caractere da sentenca
+                tem = False
+                for r in regras[estado_atual]:
+                    if sentenca[0] in regras[estado_atual][r]:
+                        #se sim, vou para esse estado
+                        estado_atual = r
+                        s = s[1:]
+                        tem = True
+                        break
+
+                #se não tem ligação com o simboloe
+                if not tem:
+                    #se não estou no ultimo símbolo da sentença e paratodos os estados (menos o estado atual), 
+                    #algum reconhece a sentenca sem o primeiro caractere, suponde que eles sejam o estado inicial
+                    if len(s) > 1:
+                        tem = False
+                        for e in estados:
+                            saida = self.reconhecer(e, s[1:], automato)
+                            if saida[0]:
+                                #se sim, crio uma ligação entre o estado atual e o estado encontrado com o primeiro caractere da sentenca
+                                self.criar_ligacao_automato(regras, estado_atual, e, s[0])
+                                automato = {'estados':estados, 'simbolos':simbolos, 'regras':regras, 'inicio':inicio, 'fim':fim}
+                                estado_atual = e
+                                s = s[1:]
+                                tem = True
+                                break
+                        if not tem:
+                            cont_estado += 1
+                            novo = 'q'+cont_estado
+                            if len(s) == 1:
+                                #estado final
+                                final.append(novo)
+                                self.criar_ligacao_automato(regras, estado_atual, novo, s[0]) 
+                                estado_atual = novo
+                                s = s[1:]
+
+    def criar_ligacao_automato(self, regras, origem, destino, simbolo):
+        if not origem in regras:
+            regras.update({origem:{}})
+
+        if not destino in regras[origem]:
+            regras[origem].update({destino:''})
+
+        regras[origem][destino] += simbolo
+
 
 
 
@@ -78,6 +112,7 @@ class AutomatoFinito:
             
     def testar(self):
         #exemplo de estrutura de um automato
+        
         estados = ['q0', 'q1', 'q2']
         simbolos = ['a', 'b', 'c']
         regras = {'q0':{'q0':'b', 'q1':'a'}, 'q1':{'q2':'ab'}}
