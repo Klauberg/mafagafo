@@ -52,17 +52,23 @@ class AutomatoFinito:
         automato = {'estados':estados, 'simbolos':simbolos, 'regras':regras, 'inicio':inicio, 'fim':fim}
 
         cont_estado = 0
-        estado_atual = inicio #começo no estado inicial já definido
+         #começo no estado inicial já definido
 
+        limite = 20
         for sentenca in sen:
             
             s = sentenca.strip()
+            estado_atual = inicio
+            
 
             while (len(s)>0):
 
+                if limite == 0: 
+                    break 
+                else: limite-=1
+
                 # Se a sentença já consegue ser reconhecida pelo AF, então pulo pra próxima
                 if not self.reconhecer('q0', sentenca, automato)[0]:
-
                     #Verifico se o estado atual tem uma ligação para o primeiro caractere da sentenca
                     tem = False
                     for r in regras[estado_atual]:
@@ -77,31 +83,32 @@ class AutomatoFinito:
                     if not tem:
                         #se não estou no ultimo símbolo da sentença e para todos os estados (menos o estado atual), 
                         #algum reconhece a sentenca sem o primeiro caractere, supondo que eles sejam o estado inicial
-                        if len(s) > 1:
-                            tem = False
-                            for e in estados:
-                                saida = self.reconhecer(e, s[1:], automato)
-                                if saida[0]:
-                                    #se sim, crio uma ligação entre o estado atual e o estado encontrado com o primeiro caractere da sentenca
-                                    self.criar_ligacao_automato(regras, estado_atual, e, s[0])
-                                    automato = {'estados':estados, 'simbolos':simbolos, 'regras':regras, 'inicio':inicio, 'fim':fim}
-                                    estado_atual = e
-                                    s = s[1:]
-                                    tem = True
-                                    break
-                            if not tem:
-                                cont_estado += 1
-                                novo = 'q'+`cont_estado`
-                                estados.append(novo)
-                                if len(s) == 1:
-                                    #estado final
-                                    fim.append(novo)
-                                self.criar_ligacao_automato(regras, estado_atual, novo, s[0])
-                                regras.update({novo:{}})
+                        tem = False
+                        for e in estados:
+                            saida = self.reconhecer(e, s[1:], automato)
+                            if saida[0]:
+                                #se sim, crio uma ligação entre o estado atual e o estado encontrado com o primeiro caractere da sentenca
+                                self.criar_ligacao_automato(regras, estado_atual, e, s[0])
                                 automato = {'estados':estados, 'simbolos':simbolos, 'regras':regras, 'inicio':inicio, 'fim':fim}
-                                estado_atual = novo
+                                estado_atual = e
                                 s = s[1:]
-                                print 'Crioou '+novo
+                                tem = True
+                                break
+                        if not tem:
+                            cont_estado += 1
+                            novo = 'q'+`cont_estado`
+                            estados.append(novo)
+                            if len(s) == 1:
+                                #estado final
+                                fim.append(novo)
+                            self.criar_ligacao_automato(regras, estado_atual, novo, s[0])
+                            regras.update({novo:{}})
+                            automato = {'estados':estados, 'simbolos':simbolos, 'regras':regras, 'inicio':inicio, 'fim':fim}
+                            estado_atual = novo
+                            s = s[1:]
+                else:
+                    'Mas entrou aki'
+                    break
         return automato
 
     def criar_ligacao_automato(self, regras, origem, destino, simbolo):
@@ -111,7 +118,8 @@ class AutomatoFinito:
         if not destino in regras[origem]:
             regras[origem].update({destino:''})
 
-        regras[origem][destino] += simbolo
+        if not simbolo in regras[origem][destino]:
+            regras[origem][destino] += simbolo
 
 
 
