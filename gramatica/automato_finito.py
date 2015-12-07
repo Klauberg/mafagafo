@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class AutomatoFinito:
     def __init__(self, linguagem):
         self.linguagem = linguagem
@@ -18,12 +19,14 @@ class AutomatoFinito:
                 return True, atual 
             else:
                 return False, atual
+        if not atual in automato['regras']: return False, atual
         for x in automato['regras'][atual]:
-            if sentenca[0] in automato['regras'][atual][x]:
-                atual = x
-                sentenca = sentenca[1:]
-                saida = self.reconhecer(atual, sentenca, automato)
-                if saida[0]: return True, saida[1]
+            if x in automato['regras'][atual]: 
+                if sentenca[0] in automato['regras'][atual][x]:
+                    atual = x
+                    sentenca = sentenca[1:]
+                    saida = self.reconhecer(atual, sentenca, automato)
+                    if saida[0]: return True, saida[1]
         return False, atual
 
     #sentecas devem estar no formato '{a,aab,baa,bab}'
@@ -56,13 +59,13 @@ class AutomatoFinito:
                     atual = saida[1]
                     fim.append(atual)
                     # ???
-                     automato = {'estados':estados, 'simbolos':simbolos, 'regras':regras, 'inicio':inicio, 'fim':fim}
-                     return automato
+                    automato = {'estados':estados, 'simbolos':simbolos, 'regras':regras, 'inicio':inicio, 'fim':fim}
+                    return automato
                 cont_estado += 1
                 novo = 'q'+cont_estado
                 estados.append(novo)
-                # ToDo - Criar uma função que adiciona um novo estados nas regras
-                # ToDo - O estado atual apontando pro estado novo, adiciona senteca[0]
+                #ToDo - Criar uma função que adiciona um novo estados nas regras
+                #ToDo - O estado atual apontando pro estado novo, adiciona senteca[0]
                 sentenca = sentenca[1:]
                 atual = novo
                 if len(sentenca)==0: fim.append(novo)
@@ -77,12 +80,12 @@ class AutomatoFinito:
         #exemplo de estrutura de um automato
         estados = ['q0', 'q1', 'q2']
         simbolos = ['a', 'b', 'c']
-        regras = {'q0':{'q0':'b', 'q1':'a', 'q2':''}, 'q1':{'q0': '', 'q1':'', 'q2':'ab'}, 'q2':{'q0':'', 'q1':'', 'q2':''}}
+        regras = {'q0':{'q0':'b', 'q1':'a'}, 'q1':{'q2':'ab'}}
         inicio = 'q0'
         fim = ['q2']
 
         automato = {'estados':estados, 'simbolos':simbolos, 'regras':regras, 'inicio':inicio, 'fim':fim}
-        sentenca = 'bbbbbbbaa'
+        sentenca = 'bbbbbbbaab'
 
         saida = self.reconhecer('q0', sentenca, automato)
         if saida[0]:
