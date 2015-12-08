@@ -13,6 +13,7 @@ class AutomatoFinito:
             #teste
             sentencas_teste = '{aca, bcb, acb, ccb}'
             aut = self.gerar_por_sentencas(sentencas_teste)
+            self.imprimir_automato(aut)
             print aut
 
     def reconhecer(self, estado_atual, sentenca, automato):
@@ -31,6 +32,57 @@ class AutomatoFinito:
                     saida = self.reconhecer(estado_atual, sentenca, automato)
                     if saida[0]: return True, saida[1]
         return False, estado_atual
+
+    def imprimir_automato(self, automato):
+        estados = ''
+        for e in automato['estados']: estados+=', '+e
+        estados=estados[2:]
+        estados = '('+estados+')'
+
+        simbolos = ''
+        for s in automato['simbolos']: simbolos+=', '+s
+        simbolos=simbolos[2:]
+        simbolos = '('+simbolos+')'
+
+        inicio = automato['inicio']
+
+        fim = ''
+        for s in automato['fim']: fim+=', '+s
+        fim=fim[2:]
+        fim = '('+fim+')'
+
+        print 'M = {'+estados+', '+simbolos+', R, '+inicio+', '+fim+'}\n'
+
+        coluna = 10
+
+        linha = '   R   |'
+        for s in automato['simbolos']: linha+='    '+s+'     |'
+        print linha
+        linha = '-------+'
+        for s in automato['simbolos']: linha+='----------+'
+        print linha
+
+        #imprimir tabela
+        for e in automato['estados']:
+            linha = ''
+            if e in automato['inicio']:
+                linha+='->'
+            else:
+                linha+='  '
+            if len(e) == 2:
+                linha+=' '+e
+            else:
+                linha+=e
+            if e in automato['fim']:
+                linha+='* |'
+            else:
+                linha+='  |'
+            #for s in automato['simbolos']:
+                
+            print linha
+        linha = '-------+'
+        for s in automato['simbolos']: linha+='----------+'
+        print linha
 
     #sentecas devem estar no formato '{a,aab,baa,bab}'
     def gerar_por_sentencas(self, sentencas):
@@ -107,7 +159,6 @@ class AutomatoFinito:
                             estado_atual = novo
                             s = s[1:]
                 else:
-                    'Mas entrou aki'
                     break
         return automato
 
