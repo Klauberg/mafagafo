@@ -47,7 +47,7 @@ class AutomatoFinito:
         for s in automato['fim']: fim+=', '+s
         fim=fim[2:]
         fim = '('+fim+')'
-
+        print '\nAutômato Finito:'
         print 'M = {'+estados+', '+simbolos+', R, '+inicio+', '+fim+'}\n'
 
         linha = '+-------+'
