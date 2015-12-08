@@ -14,7 +14,6 @@ class AutomatoFinito:
             sentencas_teste = '{aca, bcb, acb, ccb}'
             aut = self.gerar_por_sentencas(sentencas_teste)
             self.imprimir_automato(aut)
-            print aut
 
     def reconhecer(self, estado_atual, sentenca, automato):
         #print estado_atual+' '+sentenca;
@@ -53,18 +52,19 @@ class AutomatoFinito:
 
         print 'M = {'+estados+', '+simbolos+', R, '+inicio+', '+fim+'}\n'
 
-        coluna = 10
-
-        linha = '   R   |'
-        for s in automato['simbolos']: linha+='    '+s+'     |'
+        linha = '+-------+'
+        for s in automato['simbolos']: linha+='--------------------+'
         print linha
-        linha = '-------+'
-        for s in automato['simbolos']: linha+='----------+'
+        linha = '|   R   |'
+        for s in automato['simbolos']: linha+='         '+s+'          |'
+        print linha
+        linha = '+-------+'
+        for s in automato['simbolos']: linha+='--------------------+'
         print linha
 
         #imprimir tabela
         for e in automato['estados']:
-            linha = ''
+            linha = '|'
             if e in automato['inicio']:
                 linha+='->'
             else:
@@ -77,11 +77,35 @@ class AutomatoFinito:
                 linha+='* |'
             else:
                 linha+='  |'
-            #for s in automato['simbolos']:
-                
+            for s in automato['simbolos']:
+                coluna = 20
+                if not e in automato['regras']:
+                    linha+='                    |'
+                else:
+                    primeiro = True
+                    for q in automato['regras'][e]:
+                        if s in automato ['regras'][e][q]:
+                            if primeiro:    
+                                linha+='{'+q
+                                primeiro = False
+                                coluna+=1
+                            else:
+                                linha+=', '+q
+                            if len(q) == 2:
+                                coluna-=4
+                            else:
+                                coluna-=5
+                    if primeiro:
+                        linha+='                    |'
+                    else:
+                        linha+='}'
+                        for x in xrange(0,coluna-1):
+                            linha+=' '
+                        linha+='|'
+
             print linha
-        linha = '-------+'
-        for s in automato['simbolos']: linha+='----------+'
+        linha = '+-------+'
+        for s in automato['simbolos']: linha+='--------------------+'
         print linha
 
     #sentecas devem estar no formato '{a,aab,baa,bab}'
