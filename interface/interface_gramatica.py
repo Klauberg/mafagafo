@@ -102,6 +102,23 @@ def imprimir_derivacoes_sentencas(nos):
 
         print (' -> '.join(derivacoes)) + ' -> ' + (SIMBOLO_SENTENCA_VAZIA if no.sentenca == '' else no.sentenca)
 
+def obter_sentencas_af(nos):
+    if nos is None:
+        print ('Não é possível gerar sentenças para esta gramática, pois ela não gera'
+               ' nenhuma sentença finita.')
+        return
+    retorno = ''
+    for no in nos:
+        derivacoes = []
+        pai = no.nodo_pai
+        while pai is not None:
+            derivacoes.insert(0, pai.sentenca)
+            pai = pai.nodo_pai
+
+        retorno+=','+(SIMBOLO_SENTENCA_VAZIA if no.sentenca == '' else no.sentenca)
+    retorno=retorno[1:]
+    retorno='{'+retorno+'}'
+    return retorno
 def imprimir_linguagem(linguagem):
     if linguagem is None:
         print 'Não é possível identificar a linguagem dessa gramática, pois ela não ' \
@@ -132,4 +149,4 @@ def iniciar():
     imprimir_derivacoes_sentencas(sentencas_geradas)
 
     if tipo == 'GLC' or tipo == 'GR':
-        automato = AutomatoFinito(linguagem).gerar()
+        automato = AutomatoFinito(linguagem, obter_sentencas_af(sentencas_geradas)).gerar()

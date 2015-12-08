@@ -1,22 +1,20 @@
 # -*- coding: utf-8 -*-
 class AutomatoFinito:
-    def __init__(self, linguagem):
+    def __init__(self, linguagem, sentencas):
         self.linguagem = linguagem
+        self.sentencas = sentencas
 
     def gerar(self):
-        print 'Gerando o Automato a partir da linguagem: %s\n' % self.linguagem
-        self.testar()
-        if (self.linguagem[0] == 'L'):
-            print 'Automato Tipo 1\n'
-        else:
-            print 'Automato Tipo 2\n'
-            #teste
-            sentencas_teste = '{aca, bcb, acb, ccb}'
-            aut = self.gerar_por_sentencas(sentencas_teste)
-            self.imprimir_automato(aut)
+        #print 'Gerando o Automato a partir da linguagem: %s\n' % self.linguagem
+        #teste
+        #sentencas_teste = '{aa, bb, aabaa, abbb, bbba, bbb, abbbba, abbbb, bbbabaa, bbbbbb}'
+        aut = self.gerar_por_sentencas(self.sentencas)
+        self.imprimir_automato(aut)
+        #print aut
 
     def reconhecer(self, estado_atual, sentenca, automato):
         #print estado_atual+' '+sentenca;
+        sentenca = sentenca.strip()
         if sentenca == '': 
             if estado_atual in automato['fim']: 
                 return True, estado_atual 
@@ -24,7 +22,7 @@ class AutomatoFinito:
                 return False, estado_atual
         if not estado_atual in automato['regras']: return False, estado_atual
         for x in automato['regras'][estado_atual]:
-            if x in automato['regras'][estado_atual]: 
+            if x in automato['regras'][estado_atual] and len(sentenca)>0:
                 if sentenca[0] in automato['regras'][estado_atual][x]:
                     estado_atual = x
                     sentenca = sentenca[1:]
