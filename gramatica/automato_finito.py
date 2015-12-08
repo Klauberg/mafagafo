@@ -5,15 +5,14 @@ class AutomatoFinito:
         self.sentencas = sentencas
 
     def gerar(self):
-        #print 'Gerando o Automato a partir da linguagem: %s\n' % self.linguagem
-        #teste
-        #sentencas_teste = '{aa, bb, aabaa, abbb, bbba, bbb, abbbba, abbbb, bbbabaa, bbbbbb}'
         aut = self.gerar_por_sentencas(self.sentencas)
         self.imprimir_automato(aut)
-        #print aut
+        if self.automato_finito_deterministico(aut):
+            print '\nO Automato Finito é Determinístico'
+        else: 
+            print '\nO Automato Finito é Não-Determinístico'
 
     def reconhecer(self, estado_atual, sentenca, automato):
-        #print estado_atual+' '+sentenca;
         sentenca = sentenca.strip()
         if sentenca == '': 
             if estado_atual in automato['fim']: 
@@ -29,6 +28,20 @@ class AutomatoFinito:
                     saida = self.reconhecer(estado_atual, sentenca, automato)
                     if saida[0]: return True, saida[1]
         return False, estado_atual
+
+    #retorna verdadeiro se o automato for determinístico, caso contrário ele é não determinístico
+    def automato_finito_deterministico(self, automato):
+        for r in automato['regras']:
+            simbolos = []
+            for e in automato['regras'][r]:
+                if automato['regras'][r][e] != '':
+                    if automato['regras'][r][e] in simbolos:
+                        return False
+                    else:
+                        simbolos.append(automato['regras'][r][e])
+
+        return True
+
 
     def imprimir_automato(self, automato):
         estados = ''
@@ -194,29 +207,9 @@ class AutomatoFinito:
         if not simbolo in regras[origem][destino]:
             regras[origem][destino] += simbolo
 
-
-
-
     #linguagem deve estar no formato 'L=(a^m, b^n| m>=0, n=1)'
     def gerar_por_linguagens(self, linguagem):
         return None
-            
-    def testar(self):
-        #exemplo de estrutura de um automato
-        
-        estados = ['q0', 'q1', 'q2']
-        simbolos = ['a', 'b', 'c']
-        regras = {'q0':{'q0':'b', 'q1':'a'}, 'q1':{'q2':'ab'}}
-        inicio = 'q0'
-        fim = ['q2']
 
-        automato = {'estados':estados, 'simbolos':simbolos, 'regras':regras, 'inicio':inicio, 'fim':fim}
-        sentenca = 'bbbbbbbaab'
-
-        saida = self.reconhecer('q0', sentenca, automato)
-        if saida[0]:
-            print 'Reconheceu: '+saida[1]
-        else:
-            print 'Nao Reconheceu: '+saida[1]
 
 
