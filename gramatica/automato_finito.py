@@ -8,9 +8,15 @@ class AutomatoFinito:
         aut = self.gerar_por_sentencas(self.sentencas)
         self.imprimir_automato(aut)
         if self.automato_finito_deterministico(aut):
-            print '\nO Automato Finito é Determinístico'
+            print '\nO Automato Finito é Determinístico\n'
         else: 
-            print '\nO Automato Finito é Não-Determinístico'
+            print '\nO Automato Finito é Não-Determinístico\n'
+        aux = self.sentencas.replace('{','').replace('}','').split(',')
+        for s in aux:
+            if self.reconhecer('q0', s, aut)[0]:
+                print s+': Reconhecida'
+            else:
+                print s+': Não Reconhecida'
 
     def reconhecer(self, estado_atual, sentenca, automato):
         sentenca = sentenca.strip()
@@ -135,25 +141,14 @@ class AutomatoFinito:
             x = x.strip()
             for c in x:
                 if not c in simbolos: simbolos.append(c)
-
         automato = {'estados':estados, 'simbolos':simbolos, 'regras':regras, 'inicio':inicio, 'fim':fim}
-
+        
         cont_estado = 0
-         #começo no estado inicial já definido
-
-        limite = 20
+        
         for sentenca in sen:
-            
             s = sentenca.strip()
             estado_atual = inicio
-            
-
             while (len(s)>0):
-
-                if limite == 0: 
-                    break 
-                else: limite-=1
-
                 # Se a sentença já consegue ser reconhecida pelo AF, então pulo pra próxima
                 if not self.reconhecer('q0', sentenca, automato)[0]:
                     #Verifico se o estado atual tem uma ligação para o primeiro caractere da sentenca
@@ -162,6 +157,10 @@ class AutomatoFinito:
                         if sentenca[0] in regras[estado_atual][r]:
                             #se sim, vou para esse estado
                             estado_atual = r
+                            if len(s) == 1:
+                                #estado final
+                                fim.append(estado_atual)
+                                automato = {'estados':estados, 'simbolos':simbolos, 'regras':regras, 'inicio':inicio, 'fim':fim}
                             s = s[1:]
                             tem = True
                             break
