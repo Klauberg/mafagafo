@@ -27,7 +27,7 @@ class AutomatoFinito:
                 return False, estado_atual
         if not estado_atual in automato['regras']: return False, estado_atual
         for x in automato['regras'][estado_atual]:
-            if len(sentenca)>0:
+            if x in automato['regras'][estado_atual] and len(sentenca)>0:
                 if sentenca[0] in automato['regras'][estado_atual][x]:
                     estado_atual = x
                     aux_sen = sentenca[1:]
