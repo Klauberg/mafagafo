@@ -27,11 +27,11 @@ class AutomatoFinito:
                 return False, estado_atual
         if not estado_atual in automato['regras']: return False, estado_atual
         for x in automato['regras'][estado_atual]:
-            if x in automato['regras'][estado_atual] and len(sentenca)>0:
+            if len(sentenca)>0:
                 if sentenca[0] in automato['regras'][estado_atual][x]:
                     estado_atual = x
-                    sentenca = sentenca[1:]
-                    saida = self.reconhecer(estado_atual, sentenca, automato)
+                    aux_sen = sentenca[1:]
+                    saida = self.reconhecer(estado_atual, aux_sen, automato)
                     if saida[0]: return True, saida[1]
         return False, estado_atual
 
@@ -148,9 +148,11 @@ class AutomatoFinito:
         for sentenca in sen:
             s = sentenca.strip()
             estado_atual = inicio
-            while (len(s)>0):
-                # Se a sentença já consegue ser reconhecida pelo AF, então pulo pra próxima
-                if not self.reconhecer('q0', sentenca, automato)[0]:
+            
+            # Se a sentença já consegue ser reconhecida pelo AF, então pulo pra próxima
+            if not self.reconhecer('q0', sentenca, automato)[0]:
+                #enquanto s é diferente de ''
+                while (len(s)>0):
                     #Verifico se o estado atual tem uma ligação para o primeiro caractere da sentenca
                     tem = False
                     for r in regras[estado_atual]:
@@ -167,9 +169,10 @@ class AutomatoFinito:
 
                     #se não tem ligação com o simbolo
                     if not tem:
-                        #se não estou no ultimo símbolo da sentença e para todos os estados (menos o estado atual), 
-                        #algum reconhece a sentenca sem o primeiro caractere, supondo que eles sejam o estado inicial
+                        #para todos os estados, algum reconhece a sentenca sem o 
+                        #primeiro caractere, supondo que eles sejam o estado inicial
                         tem = False
+                        #Talvez (if len(s)>1:) ja que len(s[1:])==0
                         for e in estados:
                             saida = self.reconhecer(e, s[1:], automato)
                             if saida[0]:
@@ -192,8 +195,7 @@ class AutomatoFinito:
                             automato = {'estados':estados, 'simbolos':simbolos, 'regras':regras, 'inicio':inicio, 'fim':fim}
                             estado_atual = novo
                             s = s[1:]
-                else:
-                    break
+            
         return automato
 
     def criar_ligacao_automato(self, regras, origem, destino, simbolo):
