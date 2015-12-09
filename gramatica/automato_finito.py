@@ -156,7 +156,7 @@ class AutomatoFinito:
                     #Verifico se o estado atual tem uma ligação para o primeiro caractere da sentenca
                     tem = False
                     for r in regras[estado_atual]:
-                        if sentenca[0] in regras[estado_atual][r]:
+                        if s[0] in regras[estado_atual][r]:
                             #se sim, vou para esse estado
                             estado_atual = r
                             if len(s) == 1:
