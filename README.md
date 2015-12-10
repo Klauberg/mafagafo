@@ -1,6 +1,6 @@
 # Mafagafo
 
-Manipulador de Gramáticas ~~e Autômatos Finitos~~
+Manipulador de Gramáticas e Autômatos Finitos
 
 Trabalho Prático de Linguagens Formais - UNISC 2015/2
 
