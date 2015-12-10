@@ -53,21 +53,23 @@ class AutomatoFinito:
         estados = ''
         for e in automato['estados']: estados+=', '+e
         estados=estados[2:]
-        estados = '('+estados+')'
+        estados = '{'+estados+'}'
 
         simbolos = ''
         for s in automato['simbolos']: simbolos+=', '+s
         simbolos=simbolos[2:]
-        simbolos = '('+simbolos+')'
+        simbolos = '{'+simbolos+'}'
 
         inicio = automato['inicio']
 
         fim = ''
-        for s in automato['fim']: fim+=', '+s
+        for s in automato['fim']:
+            if not s in fim:
+                fim+=', '+s
         fim=fim[2:]
-        fim = '('+fim+')'
+        fim = '{'+fim+'}'
         print '\nAutômato Finito:'
-        print 'M = {'+estados+', '+simbolos+', R, '+inicio+', '+fim+'}\n'
+        print 'M = ('+estados+', '+simbolos+', R, '+inicio+', '+fim+')\n'
 
         linha = '+-------+'
         for s in automato['simbolos']: linha+='--------------------+'
