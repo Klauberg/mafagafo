@@ -149,4 +149,4 @@ def iniciar():
     imprimir_derivacoes_sentencas(sentencas_geradas)
 
     if tipo == 'GLC' or tipo == 'GR':
-        automato = AutomatoFinito(linguagem, obter_sentencas_af(sentencas_geradas)).gerar()
+        automato = AutomatoFinito(obter_sentencas_af(sentencas_geradas)).gerar()

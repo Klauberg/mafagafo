@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 class AutomatoFinito:
-    def __init__(self, linguagem, sentencas):
-        self.linguagem = linguagem
+    def __init__(self, sentencas):
         self.sentencas = sentencas
 
     def gerar(self):
@@ -209,10 +208,6 @@ class AutomatoFinito:
 
         if not simbolo in regras[origem][destino]:
             regras[origem][destino] += simbolo
-
-    #linguagem deve estar no formato 'L=(a^m, b^n| m>=0, n=1)'
-    def gerar_por_linguagens(self, linguagem):
-        return None
 
 
 
